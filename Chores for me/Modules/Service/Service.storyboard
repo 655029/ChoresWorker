@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Poppins-Regular.ttf">
+            <string>Poppins-Regular</string>
+        </array>
+        <array key="Poppins-SemiBold.ttf">
+            <string>Poppins-SemiBold</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Choose Your Service View Controller-->
+        <scene sceneID="SjG-gd-YgL">
+            <objects>
+                <viewController storyboardIdentifier="ChooseYourServiceViewController" id="Qa5-nH-eyD" customClass="ChooseYourServiceViewController" customModule="Chores_for_me" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ugd-u7-bSY">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We are serviceable in the following cities." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p6u-z6-par">
+                                <rect key="frame" x="24" y="60" width="366" height="21"/>
+                                <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="15"/>
+                                <color key="textColor" name="AppPrimaryLabelColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="l4S-dD-izn">
+                                <rect key="frame" x="24" y="97" width="366" height="50"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RoB-lM-oxw">
+                                        <rect key="frame" x="0.0" y="0.0" width="366" height="50"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="     Select City" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="NlL-hQ-WWd">
+                                                <rect key="frame" x="0.0" y="0.0" width="316" height="50"/>
+                                                <color key="backgroundColor" name="AppInputInavtiveBackgroundColor"/>
+                                                <color key="textColor" name="AppInputTextColor"/>
+                                                <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="17"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done" textContentType="one-time-code"/>
+                                            </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vd7-G3-Wm4">
+                                                <rect key="frame" x="343" y="17.5" width="15" height="15"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="15" id="2wX-5j-NS9"/>
+                                                    <constraint firstAttribute="height" constant="15" id="zYp-SP-LlB"/>
+                                                </constraints>
+                                                <state key="normal" image="play"/>
+                                                <connections>
+                                                    <action selector="dropDownLocationButtonAction:" destination="Qa5-nH-eyD" eventType="touchUpInside" id="hkO-eg-njp"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" name="AppInputInavtiveBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="NlL-hQ-WWd" firstAttribute="leading" secondItem="RoB-lM-oxw" secondAttribute="leading" id="1LM-Ar-sTR"/>
+                                            <constraint firstItem="vd7-G3-Wm4" firstAttribute="centerY" secondItem="RoB-lM-oxw" secondAttribute="centerY" id="79E-p1-PoS"/>
+                                            <constraint firstAttribute="bottom" secondItem="NlL-hQ-WWd" secondAttribute="bottom" id="7hS-RH-wku"/>
+                                            <constraint firstItem="NlL-hQ-WWd" firstAttribute="top" secondItem="RoB-lM-oxw" secondAttribute="top" id="iyf-GU-LiQ"/>
+                                            <constraint firstAttribute="height" constant="50" id="pFm-aE-9dT"/>
+                                            <constraint firstAttribute="trailing" secondItem="NlL-hQ-WWd" secondAttribute="trailing" constant="50" id="q8u-j5-sy1"/>
+                                            <constraint firstAttribute="trailing" secondItem="vd7-G3-Wm4" secondAttribute="trailing" constant="8" id="t5b-h7-lUS"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                            </stackView>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="f18-9z-FmI">
+                                <rect key="frame" x="0.0" y="157" width="414" height="605"/>
+                                <color key="backgroundColor" name="AppPrimaryBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="AX2-hm-gqC">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                            </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fo4-rN-pRk" customClass="DesignableButton" customModule="Designable">
+                                <rect key="frame" x="24" y="778" width="366" height="52"/>
+                                <color key="backgroundColor" name="AppSecondaryBackgroundColor"/>
+                                <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="15"/>
+                                <inset key="contentEdgeInsets" minX="20" minY="13.5" maxX="20" maxY="13.5"/>
+                                <state key="normal" title="NEXT">
+                                    <color key="titleColor" name="AppPrimaryLabelColor"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="nextButtonAction:" destination="Qa5-nH-eyD" eventType="touchUpInside" id="91D-Wu-neV"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="PcW-DK-6pe"/>
+                        <color key="backgroundColor" name="AppPrimaryBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="l4S-dD-izn" firstAttribute="top" secondItem="p6u-z6-par" secondAttribute="bottom" constant="16" id="2zX-HX-huz"/>
+                            <constraint firstItem="f18-9z-FmI" firstAttribute="top" secondItem="l4S-dD-izn" secondAttribute="bottom" constant="10" id="8aq-dL-GLw"/>
+                            <constraint firstItem="fo4-rN-pRk" firstAttribute="top" secondItem="f18-9z-FmI" secondAttribute="bottom" constant="16" id="Flg-2b-zMm"/>
+                            <constraint firstItem="p6u-z6-par" firstAttribute="top" secondItem="PcW-DK-6pe" secondAttribute="top" constant="16" id="Ieq-9W-XEf"/>
+                            <constraint firstItem="PcW-DK-6pe" firstAttribute="trailing" secondItem="f18-9z-FmI" secondAttribute="trailing" id="Kho-b8-o5X"/>
+                            <constraint firstItem="PcW-DK-6pe" firstAttribute="bottom" secondItem="fo4-rN-pRk" secondAttribute="bottom" constant="32" id="QnW-I2-4M8"/>
+                            <constraint firstItem="p6u-z6-par" firstAttribute="leading" secondItem="PcW-DK-6pe" secondAttribute="leading" constant="24" id="RSN-Cu-uog"/>
+                            <constraint firstItem="l4S-dD-izn" firstAttribute="trailing" secondItem="p6u-z6-par" secondAttribute="trailing" id="TkR-Bi-Ltp"/>
+                            <constraint firstAttribute="trailing" secondItem="p6u-z6-par" secondAttribute="trailing" constant="24" id="aOi-Ad-ySg"/>
+                            <constraint firstItem="PcW-DK-6pe" firstAttribute="bottom" secondItem="f18-9z-FmI" secondAttribute="bottom" constant="100" id="gGF-0s-8Hc"/>
+                            <constraint firstItem="f18-9z-FmI" firstAttribute="leading" secondItem="PcW-DK-6pe" secondAttribute="leading" id="geS-by-Gg9"/>
+                            <constraint firstItem="l4S-dD-izn" firstAttribute="leading" secondItem="p6u-z6-par" secondAttribute="leading" id="k1R-0b-o7D"/>
+                            <constraint firstItem="PcW-DK-6pe" firstAttribute="trailing" secondItem="fo4-rN-pRk" secondAttribute="trailing" constant="24" id="sA9-j6-GOn"/>
+                            <constraint firstItem="fo4-rN-pRk" firstAttribute="leading" secondItem="PcW-DK-6pe" secondAttribute="leading" constant="24" id="vOO-4I-PC7"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="collectionView" destination="f18-9z-FmI" id="xj1-c2-o32"/>
+                        <outlet property="serviceTextFeild" destination="NlL-hQ-WWd" id="lYv-Gy-Dei"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="O4o-lC-QHr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="228" y="133"/>
+        </scene>
+        <!--Choose Sub Services View Controller-->
+        <scene sceneID="dTP-a0-zkY">
+            <objects>
+                <viewController storyboardIdentifier="ChooseSubServicesViewController" id="c9k-Hb-Dtg" customClass="ChooseSubServicesViewController" customModule="Chores_for_me" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="MsX-sm-myE">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gla-fP-PpB" customClass="DesignableButton" customModule="Designable">
+                                <rect key="frame" x="24" y="782" width="366" height="48"/>
+                                <color key="backgroundColor" name="AppSecondaryBackgroundColor"/>
+                                <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="15"/>
+                                <inset key="contentEdgeInsets" minX="20" minY="13.5" maxX="20" maxY="13.5"/>
+                                <state key="normal" title="NEXT">
+                                    <color key="titleColor" name="AppPrimaryLabelColor"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="nextButtonAction:" destination="c9k-Hb-Dtg" eventType="touchUpInside" id="i3r-TJ-LOg"/>
+                                </connections>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vek-Ce-uQs">
+                                <rect key="frame" x="0.0" y="44" width="414" height="722"/>
+                                <color key="backgroundColor" name="AppPrimaryBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6OY-8o-olP"/>
+                        <color key="backgroundColor" name="AppPrimaryBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="6OY-8o-olP" firstAttribute="bottom" secondItem="gla-fP-PpB" secondAttribute="bottom" constant="32" id="11w-je-1zd"/>
+                            <constraint firstItem="vek-Ce-uQs" firstAttribute="top" secondItem="6OY-8o-olP" secondAttribute="top" id="QXl-uE-Vpi"/>
+                            <constraint firstItem="gla-fP-PpB" firstAttribute="leading" secondItem="6OY-8o-olP" secondAttribute="leading" constant="24" id="Rb0-c0-pBV"/>
+                            <constraint firstItem="6OY-8o-olP" firstAttribute="trailing" secondItem="vek-Ce-uQs" secondAttribute="trailing" id="eHn-Y9-PPN"/>
+                            <constraint firstItem="gla-fP-PpB" firstAttribute="top" secondItem="vek-Ce-uQs" secondAttribute="bottom" constant="16" id="f0p-nI-kpy"/>
+                            <constraint firstItem="vek-Ce-uQs" firstAttribute="leading" secondItem="6OY-8o-olP" secondAttribute="leading" id="fpT-UQ-SgG"/>
+                            <constraint firstItem="6OY-8o-olP" firstAttribute="trailing" secondItem="gla-fP-PpB" secondAttribute="trailing" constant="24" id="kBe-su-1dS"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="vek-Ce-uQs" id="lYh-X2-p2m"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Vuh-Sw-G7Y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="875" y="133"/>
+        </scene>
+    </scenes>
+    <designables>
+        <designable name="fo4-rN-pRk">
+            <size key="intrinsicContentSize" width="78" height="48"/>
+        </designable>
+        <designable name="gla-fP-PpB">
+            <size key="intrinsicContentSize" width="78" height="48"/>
+        </designable>
+    </designables>
+    <resources>
+        <image name="play" width="30" height="30"/>
+        <namedColor name="AppInputInavtiveBackgroundColor">
+            <color red="0.96078431372549022" green="0.97254901960784312" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="AppInputTextColor">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="AppPrimaryBackgroundColor">
+            <color red="0.16862745098039217" green="0.18823529411764706" blue="0.2196078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="AppPrimaryLabelColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="AppSecondaryBackgroundColor">
+            <color red="0.12549019607843137" green="0.14117647058823529" blue="0.16470588235294117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

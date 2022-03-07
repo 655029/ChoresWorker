@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Poppins-Regular.ttf">
+            <string>Poppins-Regular</string>
+        </array>
+        <array key="Poppins-SemiBold.ttf">
+            <string>Poppins-SemiBold</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Choose Your City View Controller-->
+        <scene sceneID="CT5-IJ-1ad">
+            <objects>
+                <viewController storyboardIdentifier="ChooseYourCityViewController" id="RCX-Ge-Qtk" customClass="ChooseYourCityViewController" customModule="Chores_for_me" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="H2z-OJ-aZ8">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Radius" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bub-cW-Xk3">
+                                <rect key="frame" x="70" y="161" width="94" height="20"/>
+                                <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="14"/>
+                                <color key="textColor" name="AppPrimaryLabelColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fvf-9c-5jC" customClass="DesignableButton" customModule="Designable">
+                                <rect key="frame" x="24" y="782" width="346" height="48"/>
+                                <color key="backgroundColor" name="AppSecondaryBackgroundColor"/>
+                                <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="15"/>
+                                <inset key="contentEdgeInsets" minX="20" minY="13.5" maxX="20" maxY="13.5"/>
+                                <state key="normal" title="NEXT">
+                                    <color key="titleColor" name="AppPrimaryLabelColor"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="nextButoonAction:" destination="RCX-Ge-Qtk" eventType="touchUpInside" id="JVc-7P-Swn"/>
+                                </connections>
+                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="9Wc-v8-pKD">
+                                <rect key="frame" x="174" y="151" width="220" height="40"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Radius" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tc7-ab-K1h" customClass="AppTextField" customModule="Chores_for_me" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="80" height="40"/>
+                                        <color key="backgroundColor" name="AppInputInavtiveBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="80" id="Dpr-uf-Vf0"/>
+                                            <constraint firstAttribute="height" constant="40" id="ddk-wn-AMI"/>
+                                        </constraints>
+                                        <color key="textColor" name="AppInputTextColor"/>
+                                        <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="15"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="next"/>
+                                    </textField>
+                                    <button clipsSubviews="YES" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ylv-1Z-WWo">
+                                        <rect key="frame" x="90" y="0.0" width="130" height="40"/>
+                                        <color key="backgroundColor" name="AppInputAvtiveBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="130" id="rkB-LQ-Quc"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                        <color key="tintColor" name="AppInputTextColor"/>
+                                        <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
+                                        <inset key="imageEdgeInsets" minX="40" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="Meter " image="button123">
+                                            <color key="titleColor" name="AppInputTextColor"/>
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="15" scale="small"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <integer key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="dropDownButtonAction:" destination="RCX-Ge-Qtk" eventType="touchUpInside" id="aEW-Hh-fLD"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4si-ai-hTA">
+                                <rect key="frame" x="28" y="74" width="366" height="52"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder=" Select location" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ntY-3d-x23">
+                                        <rect key="frame" x="0.0" y="0.0" width="346" height="52"/>
+                                        <color key="backgroundColor" name="AppInputInavtiveBackgroundColor"/>
+                                        <color key="textColor" name="AppInputTextColor"/>
+                                        <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="17"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="webSearch" returnKeyType="next" textContentType="location"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QuN-ca-tfD">
+                                        <rect key="frame" x="338" y="19.5" width="18" height="13"/>
+                                        <color key="backgroundColor" name="AppInputAvtiveBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="13" id="Z5F-Bh-8bL"/>
+                                            <constraint firstAttribute="width" constant="18" id="eLJ-Cc-L26"/>
+                                        </constraints>
+                                        <state key="normal" image="play"/>
+                                        <connections>
+                                            <action selector="selctOnMapButtonAction:" destination="RCX-Ge-Qtk" eventType="touchUpInside" id="xuq-yZ-2eO"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XPe-75-vZ4">
+                                        <rect key="frame" x="0.0" y="0.0" width="346" height="52"/>
+                                        <connections>
+                                            <action selector="selctOnMapButtonAction:" destination="RCX-Ge-Qtk" eventType="touchUpInside" id="Y0d-dp-D8L"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" name="AppInputInavtiveBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="QuN-ca-tfD" firstAttribute="centerY" secondItem="4si-ai-hTA" secondAttribute="centerY" id="8HF-bp-FId"/>
+                                    <constraint firstItem="ntY-3d-x23" firstAttribute="leading" secondItem="4si-ai-hTA" secondAttribute="leading" id="D8M-cE-GIv"/>
+                                    <constraint firstAttribute="trailing" secondItem="ntY-3d-x23" secondAttribute="trailing" constant="20" id="Hx4-7r-Eua"/>
+                                    <constraint firstItem="XPe-75-vZ4" firstAttribute="trailing" secondItem="ntY-3d-x23" secondAttribute="trailing" id="Ijp-vr-sDt"/>
+                                    <constraint firstItem="XPe-75-vZ4" firstAttribute="top" secondItem="ntY-3d-x23" secondAttribute="top" id="KVx-mp-zSK"/>
+                                    <constraint firstItem="XPe-75-vZ4" firstAttribute="bottom" secondItem="ntY-3d-x23" secondAttribute="bottom" id="OH8-fA-cRr"/>
+                                    <constraint firstAttribute="height" constant="52" id="PH9-L2-fsh"/>
+                                    <constraint firstAttribute="trailing" secondItem="QuN-ca-tfD" secondAttribute="trailing" constant="10" id="Rle-1e-pnx"/>
+                                    <constraint firstItem="ntY-3d-x23" firstAttribute="top" secondItem="4si-ai-hTA" secondAttribute="top" id="iAg-uk-Xls"/>
+                                    <constraint firstItem="XPe-75-vZ4" firstAttribute="leading" secondItem="ntY-3d-x23" secondAttribute="leading" id="woJ-zl-uqm"/>
+                                    <constraint firstAttribute="bottom" secondItem="ntY-3d-x23" secondAttribute="bottom" id="zpM-td-Mww"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="ei4-0N-Y0U"/>
+                        <color key="backgroundColor" name="AppPrimaryBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="ei4-0N-Y0U" firstAttribute="trailing" secondItem="Ylv-1Z-WWo" secondAttribute="trailing" constant="20" id="ACp-EE-QsC"/>
+                            <constraint firstItem="Fvf-9c-5jC" firstAttribute="leading" secondItem="ei4-0N-Y0U" secondAttribute="leading" constant="24" id="ESh-bL-0fZ"/>
+                            <constraint firstItem="ei4-0N-Y0U" firstAttribute="bottom" secondItem="Fvf-9c-5jC" secondAttribute="bottom" constant="32" id="Fye-uv-l2f"/>
+                            <constraint firstItem="ei4-0N-Y0U" firstAttribute="trailing" secondItem="4si-ai-hTA" secondAttribute="trailing" constant="20" id="H1H-0J-rJ4"/>
+                            <constraint firstItem="9Wc-v8-pKD" firstAttribute="top" secondItem="4si-ai-hTA" secondAttribute="bottom" constant="25" id="O9l-I0-U33"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Fvf-9c-5jC" secondAttribute="trailing" constant="24" id="S6c-ra-9Ro"/>
+                            <constraint firstItem="4si-ai-hTA" firstAttribute="leading" secondItem="ei4-0N-Y0U" secondAttribute="leading" constant="28" id="XAm-cd-Pxm"/>
+                            <constraint firstItem="ei4-0N-Y0U" firstAttribute="top" secondItem="4si-ai-hTA" secondAttribute="top" constant="-30" id="gBs-kv-Hds"/>
+                            <constraint firstItem="9Wc-v8-pKD" firstAttribute="leading" secondItem="Bub-cW-Xk3" secondAttribute="trailing" constant="10" id="hqC-Hc-6id"/>
+                            <constraint firstItem="9Wc-v8-pKD" firstAttribute="centerY" secondItem="Bub-cW-Xk3" secondAttribute="centerY" id="mCi-qg-3OY"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="locationTextField" destination="ntY-3d-x23" id="f4x-AW-1L5"/>
+                        <outlet property="meterButton" destination="Ylv-1Z-WWo" id="giG-CV-CEE"/>
+                        <outlet property="nextButtonBottomCostraint" destination="Fye-uv-l2f" id="qx2-cW-9VB"/>
+                        <outlet property="radiousTextField" destination="tc7-ab-K1h" id="vwk-He-6vh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FN7-4r-htd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-423.1884057971015" y="132.58928571428572"/>
+        </scene>
+    </scenes>
+    <designables>
+        <designable name="Fvf-9c-5jC">
+            <size key="intrinsicContentSize" width="78" height="48"/>
+        </designable>
+        <designable name="tc7-ab-K1h">
+            <size key="intrinsicContentSize" width="79" height="34"/>
+        </designable>
+    </designables>
+    <resources>
+        <image name="button123" width="20" height="20"/>
+        <image name="play" width="30" height="30"/>
+        <namedColor name="AppInputAvtiveBackgroundColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="AppInputInavtiveBackgroundColor">
+            <color red="0.96078431372549022" green="0.97254901960784312" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="AppInputTextColor">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="AppPrimaryBackgroundColor">
+            <color red="0.16862745098039217" green="0.18823529411764706" blue="0.2196078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="AppPrimaryLabelColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="AppSecondaryBackgroundColor">
+            <color red="0.12549019607843137" green="0.14117647058823529" blue="0.16470588235294117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

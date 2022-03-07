@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ServiceCollectionViewCell" id="gTV-IL-0wX" customClass="ServiceCollectionViewCell" customModule="Chores_for_me" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="230" height="191"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="230" height="191"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="38r-EG-dK9" customClass="DesignableView" customModule="Designable">
+                        <rect key="frame" x="0.0" y="0.0" width="230" height="191"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c4x-G6-YcX">
+                                <rect key="frame" x="184" y="16" width="30" height="34"/>
+                                <state key="selected" image="COMPLETED JOB 1">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" name="AppTertiaryBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="c4x-G6-YcX" secondAttribute="trailing" constant="16" id="EQp-ve-iEF"/>
+                            <constraint firstItem="c4x-G6-YcX" firstAttribute="top" secondItem="38r-EG-dK9" secondAttribute="top" constant="16" id="QaY-nG-0tU"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                <real key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                <color key="value" name="AppDefaultBorderColor"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="10"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="CvS-Kn-K1f">
+                        <rect key="frame" x="63.5" y="21" width="103.5" height="101"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="CvS-Kn-K1f" secondAttribute="height" id="N7z-4H-yAI"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tOK-0c-LMN">
+                        <rect key="frame" x="16" y="128.5" width="198" height="52.5"/>
+                        <string key="text">Outdoor Home 
+Service</string>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
+                        <color key="textColor" name="AppSecondaryLabelColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstItem="CvS-Kn-K1f" firstAttribute="width" secondItem="gTV-IL-0wX" secondAttribute="width" multiplier="0.45" id="Jac-5J-joO"/>
+                <constraint firstAttribute="bottom" secondItem="38r-EG-dK9" secondAttribute="bottom" id="O6O-WJ-WWL"/>
+                <constraint firstItem="38r-EG-dK9" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Sax-9h-xln"/>
+                <constraint firstItem="38r-EG-dK9" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Ts7-MY-Whf"/>
+                <constraint firstAttribute="trailing" secondItem="tOK-0c-LMN" secondAttribute="trailing" constant="16" id="UDV-va-9cI"/>
+                <constraint firstItem="tOK-0c-LMN" firstAttribute="top" secondItem="CvS-Kn-K1f" secondAttribute="bottom" constant="5" id="XMH-0k-j9B"/>
+                <constraint firstItem="CvS-Kn-K1f" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="XzE-ow-evU"/>
+                <constraint firstItem="tOK-0c-LMN" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="16" id="a2q-TH-252"/>
+                <constraint firstItem="CvS-Kn-K1f" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="20" id="aBi-p8-w1X"/>
+                <constraint firstAttribute="trailing" secondItem="38r-EG-dK9" secondAttribute="trailing" id="gem-9A-PSP"/>
+                <constraint firstAttribute="bottom" secondItem="tOK-0c-LMN" secondAttribute="bottom" constant="10" id="zbI-aS-9mV"/>
+            </constraints>
+            <size key="customSize" width="230" height="191"/>
+            <connections>
+                <outlet property="isSelectButton" destination="c4x-G6-YcX" id="BGc-Zm-etm"/>
+                <outlet property="serviceImageView" destination="CvS-Kn-K1f" id="Ae0-po-q1C"/>
+                <outlet property="serviceTitleLabel" destination="tOK-0c-LMN" id="MiP-e2-rDo"/>
+            </connections>
+            <point key="canvasLocation" x="249.27536231884059" y="98.772321428571431"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="COMPLETED JOB 1" width="30" height="30"/>
+        <image name="app.fill" catalog="system" width="128" height="114"/>
+        <namedColor name="AppDefaultBorderColor">
+            <color red="0.59215686274509804" green="0.66666666666666663" blue="0.74117647058823533" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="AppSecondaryLabelColor">
+            <color red="0.12549019607843137" green="0.14117647058823529" blue="0.16470588235294117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="AppTertiaryBackgroundColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

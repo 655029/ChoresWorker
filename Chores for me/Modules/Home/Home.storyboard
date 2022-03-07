@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Poppins-Bold.ttf">
+            <string>Poppins-Bold</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Home View Controller-->
+        <scene sceneID="D4w-5a-29P">
+            <objects>
+                <viewController storyboardIdentifier="HomeViewController" id="KlK-Kl-95N" customClass="HomeViewController" customModule="Chores_for_me" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3HI-UT-KIa">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9gZ-0o-QHc">
+                                <rect key="frame" x="0.0" y="44" width="414" height="56"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="leading" contentVerticalAlignment="top" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gdv-tl-qjh" customClass="DesignableButton" customModule="Designable">
+                                        <rect key="frame" x="8" y="16" width="398" height="24"/>
+                                        <fontDescription key="fontDescription" name="Poppins-Bold" family="Poppins" pointSize="17"/>
+                                        <state key="normal" title="Current Location" image="location.mark"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" name="AppSecondaryBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="Gdv-tl-qjh" firstAttribute="centerY" secondItem="9gZ-0o-QHc" secondAttribute="centerY" id="2yi-aI-Czw"/>
+                                    <constraint firstAttribute="height" constant="56" id="F2b-xa-z22"/>
+                                    <constraint firstItem="Gdv-tl-qjh" firstAttribute="leading" secondItem="9gZ-0o-QHc" secondAttribute="leadingMargin" id="T7N-JX-DWP"/>
+                                    <constraint firstAttribute="trailing" secondItem="Gdv-tl-qjh" secondAttribute="trailing" constant="8" id="ZPY-Kp-LY6"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jLo-m5-Rwn">
+                                <rect key="frame" x="0.0" y="100" width="414" height="762"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="jS2-hE-olr">
+                                        <rect key="frame" x="0.0" y="-2" width="414" height="764"/>
+                                        <color key="backgroundColor" name="AppPrimaryBackgroundColor"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="KlK-Kl-95N" id="rHG-jp-iPj"/>
+                                            <outlet property="delegate" destination="KlK-Kl-95N" id="7kQ-RD-40I"/>
+                                        </connections>
+                                    </tableView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fay-3Z-ymJ">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="797"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CUSTOM2" translatesAutoresizingMaskIntoConstraints="NO" id="inW-A5-qbG">
+                                                <rect key="frame" x="157" y="318.5" width="100" height="100"/>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Oops! No jobs Found" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="prS-8G-U6h">
+                                                <rect key="frame" x="119.5" y="438.5" width="175" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                                <color key="textColor" name="AppPrimaryLabelColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" name="AppPrimaryBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="inW-A5-qbG" firstAttribute="centerX" secondItem="prS-8G-U6h" secondAttribute="centerX" id="318-IG-eRr"/>
+                                            <constraint firstItem="inW-A5-qbG" firstAttribute="centerX" secondItem="fay-3Z-ymJ" secondAttribute="centerX" id="TvJ-Gl-poi"/>
+                                            <constraint firstItem="prS-8G-U6h" firstAttribute="top" secondItem="inW-A5-qbG" secondAttribute="bottom" constant="20" id="aOs-hd-BQL"/>
+                                            <constraint firstItem="inW-A5-qbG" firstAttribute="centerY" secondItem="fay-3Z-ymJ" secondAttribute="centerY" constant="-30" id="wWa-5A-JOU"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" name="AppPrimaryBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="fay-3Z-ymJ" firstAttribute="leading" secondItem="jS2-hE-olr" secondAttribute="leading" id="4io-5C-CzJ"/>
+                                    <constraint firstAttribute="trailing" secondItem="jS2-hE-olr" secondAttribute="trailing" id="B7r-8m-Yb0"/>
+                                    <constraint firstAttribute="bottom" secondItem="jS2-hE-olr" secondAttribute="bottom" id="Twx-yj-mqd"/>
+                                    <constraint firstItem="fay-3Z-ymJ" firstAttribute="trailing" secondItem="jS2-hE-olr" secondAttribute="trailing" id="VrT-E9-aMa"/>
+                                    <constraint firstItem="fay-3Z-ymJ" firstAttribute="top" secondItem="jLo-m5-Rwn" secondAttribute="top" id="ZxG-WZ-p2P"/>
+                                    <constraint firstItem="jS2-hE-olr" firstAttribute="leading" secondItem="jLo-m5-Rwn" secondAttribute="leading" id="laA-Zj-eAy"/>
+                                    <constraint firstAttribute="bottom" secondItem="fay-3Z-ymJ" secondAttribute="bottom" constant="-35" id="njT-7g-ip2"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="KQK-Sg-UVa"/>
+                        <color key="backgroundColor" name="AppSecondaryBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="jS2-hE-olr" firstAttribute="top" secondItem="9gZ-0o-QHc" secondAttribute="bottom" constant="-2" id="1Tv-Sw-qVX"/>
+                            <constraint firstItem="KQK-Sg-UVa" firstAttribute="bottom" secondItem="jLo-m5-Rwn" secondAttribute="bottom" id="7r0-jf-A6g"/>
+                            <constraint firstItem="jLo-m5-Rwn" firstAttribute="leading" secondItem="KQK-Sg-UVa" secondAttribute="leading" id="9vU-c4-X15"/>
+                            <constraint firstItem="KQK-Sg-UVa" firstAttribute="trailing" secondItem="jLo-m5-Rwn" secondAttribute="trailing" id="B5G-kQ-JgA"/>
+                            <constraint firstItem="9gZ-0o-QHc" firstAttribute="top" secondItem="KQK-Sg-UVa" secondAttribute="top" id="KRl-GO-AxN"/>
+                            <constraint firstItem="KQK-Sg-UVa" firstAttribute="trailing" secondItem="9gZ-0o-QHc" secondAttribute="trailing" id="U9Y-D3-HU3"/>
+                            <constraint firstItem="jLo-m5-Rwn" firstAttribute="top" secondItem="9gZ-0o-QHc" secondAttribute="bottom" id="Y6A-IY-0SY"/>
+                            <constraint firstItem="9gZ-0o-QHc" firstAttribute="leading" secondItem="3HI-UT-KIa" secondAttribute="leading" id="iom-Vh-iXL"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="currentLocationButton" destination="Gdv-tl-qjh" id="m9Y-mN-PlX"/>
+                        <outlet property="tableView" destination="jS2-hE-olr" id="CQX-vS-ria"/>
+                        <outlet property="view_OopsView" destination="fay-3Z-ymJ" id="VsW-E0-Xz1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hYC-vc-j9x" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-49.275362318840585" y="148.66071428571428"/>
+        </scene>
+    </scenes>
+    <designables>
+        <designable name="Gdv-tl-qjh">
+            <size key="intrinsicContentSize" width="162" height="24"/>
+        </designable>
+    </designables>
+    <resources>
+        <image name="CUSTOM2" width="100" height="100"/>
+        <image name="location.mark" width="15" height="24"/>
+        <namedColor name="AppPrimaryBackgroundColor">
+            <color red="0.16862745098039217" green="0.18823529411764706" blue="0.2196078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="AppPrimaryLabelColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="AppSecondaryBackgroundColor">
+            <color red="0.12549019607843137" green="0.14117647058823529" blue="0.16470588235294117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>
