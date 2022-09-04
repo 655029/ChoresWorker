@@ -17,9 +17,6 @@ class BookingHistoryViewController: HomeBaseViewController {
     
     // MARK: - Properties
     var bookingHistoryResponseData = [GetReqOnProviderSideModelData]()
-    static var locationForBookingHistory: String?
-    
-    
     // MARK: - Lifecycle
     
     // Custom initializers go here
@@ -28,8 +25,6 @@ class BookingHistoryViewController: HomeBaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector:#selector(viewWillAppear(_:)), name: NSNotification.Name(rawValue: "Forground"), object: nil)
-        NotificationCenter.default.addObserver(self, selector : #selector(handleNotification(n:)), name : Notification.Name("notificationData"), object : nil)
         locationButton.addSpaceBetweenImageAndTitle(spacing: 10.0)
         navigationItem.title = "Hello \(UserStoreSingleton.shared.name ?? "")"
         bookingHistoryTableView.delegate = self
@@ -39,36 +34,22 @@ class BookingHistoryViewController: HomeBaseViewController {
         bookingHistoryTableView.rowHeight = UITableView.automaticDimension
         bookingHistoryTableView.estimatedRowHeight = 300
        // self.locationButton.setTitle(UserStoreSingleton.shared.Address, for: .normal)
-        bookingHistory()
-//        if Reachability.isConnectedToNetwork(){
-//            bookingHistory()
-////        }else{
-//            openAlert(title: "Chores for me", message: "Make Sure Your Internet Is Connected", alertStyle: .alert, actionTitles: ["OK"], actionStyles: [.default], actions: [{_ in
-//            }])
-//        }
+        if Reachability.isConnectedToNetwork(){
+            bookingHistory()
+        }else{
+            openAlert(title: "Chores for me", message: "Make Sure Your Internet Is Connected", alertStyle: .alert, actionTitles: ["OK"], actionStyles: [.default], actions: [{_ in
+            }])
+        }
     }
     override func viewWillAppear(_ animated: Bool) {
-        NotificationCenter.default.addObserver(self, selector : #selector(handleNotification(n:)), name : Notification.Name("notificationData"), object : nil)
         navigationItem.title = "Hello \(UserStoreSingleton.shared.name ?? "")"
         tabBarController?.tabBar.isHidden = false
-        self.locationButton.setTitle(BookingHistoryViewController.locationForBookingHistory, for: .normal)
+        self.locationButton.setTitle(UserStoreSingleton.shared.locationName, for: .normal)
+        if Reachability.isConnectedToNetwork(){
             bookingHistory()
-        self.bookingHistoryTableView.reloadData()
-
-        
-    }
-    
-    @objc func handleNotification(n : NSNotification) {
-        print(n)
-        let dicData = n.object as! [String: String]
-        let notificationType = dicData["notificationType"]!
-        if notificationType == "request" {
-            let screenShotImage = TakeScreenShotImage.shareInstance.takeScreenshot(false) ?? UIImage()
-            let storyboard = UIStoryboard(name: "Booking", bundle: nil)
-            let secondVc = storyboard.instantiateViewController(withIdentifier: "NewBookingViewController") as! NewBookingViewController
-            secondVc.delegate = self
-            secondVc.sSImage = screenShotImage
-            self.present(secondVc, animated: false, completion: nil)
+        }else{
+            openAlert(title: "Chores for me", message: "Make Sure Your Internet Is Connected", alertStyle: .alert, actionTitles: ["OK"], actionStyles: [.default], actions: [{_ in
+            }])
         }
     }
     
@@ -83,7 +64,7 @@ class BookingHistoryViewController: HomeBaseViewController {
     // MARK: - Additional Helpers
     func bookingHistory(){
         showActivity()
-//        self.bookingHistoryResponseData.removeAll()
+        self.bookingHistoryResponseData.removeAll()
         let parameters = ["signupType":"1"]
         let url = URL(string: "http://3.18.59.239:3000/api/v1/jobs-history")
         var request = URLRequest(url: url!)
@@ -102,7 +83,8 @@ class BookingHistoryViewController: HomeBaseViewController {
                     let json =  try JSONDecoder().decode(GetReqOnProviderSideModel.self, from: data)
                     DispatchQueue.main.async {
                         self.hideActivity()
-                            self.bookingHistoryResponseData = json.data!
+                        self.bookingHistoryResponseData = json.data!
+                        
                         if self.bookingHistoryResponseData.count == 0 {
                          //  self.showMessage(json.message ?? "")
                             self.bookingHistoryResponseData = []
@@ -141,17 +123,17 @@ extension BookingHistoryViewController: UITableViewDataSource ,UITableViewDelega
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "BookingsHistoryTableViewCell") as? BookingsHistoryTableViewCell else {
             return UITableViewCell()
         }
-        if bookingHistoryResponseData[indexPath.row].jobStatus == "cancel"{
+        if bookingHistoryResponseData[indexPath.row].jobStatus?.lowercased() == "cancel"{
             cell.historyCancelLabel.isHidden = false
             cell.historyCheckButton.isHidden = true
         }else if bookingHistoryResponseData[indexPath.row].jobStatus?.lowercased() == "complete" {
             cell.historyCancelLabel.isHidden = true
             cell.historyCheckButton.isHidden = false
         }
-        let selectedDay = bookingHistoryResponseData[indexPath.row].day
-        let day = String(selectedDay!.dropFirst(2))
-        let space = day.trimmingCharacters(in: .whitespacesAndNewlines)
-        cell.historyTimeLabel.text = bookingHistoryResponseData[indexPath.row].day
+        var selectedDay = bookingHistoryResponseData[indexPath.row].day
+        selectedDay = selectedDay!.replacingOccurrences(of: " \n", with: "", options: NSString.CompareOptions.literal, range: nil)
+        let dayWithOutDate = String((selectedDay?.dropFirst(3))!)
+        cell.historyTimeLabel.text = dayWithOutDate
         cell.historySecviceLbl.text = bookingHistoryResponseData[indexPath.row].categoryName
         cell.historyLocationLabel.text = bookingHistoryResponseData[indexPath.row].location
         cell.priceLabel.text = bookingHistoryResponseData[indexPath.row].price
@@ -167,7 +149,7 @@ extension BookingHistoryViewController: UITableViewDataSource ,UITableViewDelega
                 cell.historyServiceImageView.image = image
             }
         }
-        cell.historyNameLabel.text = self.bookingHistoryResponseData[indexPath.row].userDetails?.first_name ?? ""
+        cell.historyNameLabel.text = self.bookingHistoryResponseData[indexPath.row].userDetails?.name ?? ""
         let profileUrl = URL(string: "\(bookingHistoryResponseData[indexPath.row].userDetails?.image ?? "")")
         cell.historyProfileImageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
         cell.historyProfileImageView?.sd_setImage(with: profileUrl) { (image, error, cache, urls) in
@@ -178,8 +160,8 @@ extension BookingHistoryViewController: UITableViewDataSource ,UITableViewDelega
             }
         }
         let date = getDate(date: bookingHistoryResponseData[indexPath.row].booking_date ?? "")
-        let time =  bookingHistoryResponseData[indexPath.row].time ?? ""
-        let dateTime = time + " : " + date!
+        let time = getTime(time: bookingHistoryResponseData[indexPath.row].time ?? "")
+        let dateTime = time! + " : " + date!
         cell.historyDateLabel.text = dateTime
         cell.copybtn.addTarget(self, action: #selector(copy_btn_tapped), for: .touchUpInside)
         cell.view_Rating.rating = Double((bookingHistoryResponseData[indexPath.row].userDetails?.rating ?? 0.0) as Float)
@@ -203,12 +185,5 @@ extension BookingHistoryViewController: UITableViewDataSource ,UITableViewDelega
         UIPasteboard.general.string = location
             self.showMessage("Text Copid")
             
-    }
-}
-
-extension BookingHistoryViewController : fromNotification {
-    func dissmissNotification(jobId: Int) {
-        print("------Working-----")
-        self.navigate(.jobStatus(jobId: jobId))
     }
 }

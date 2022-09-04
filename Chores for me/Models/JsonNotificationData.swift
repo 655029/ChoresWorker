@@ -29,17 +29,14 @@ struct JsonNotificationData : Codable {
     let time : String?
     let jobStatus : String?
     let createdAt : String?
-    let booking_date : String?
     let userDetails : UserDetailsData?
     let providerDetails : ProviderDetails?
-    let first_name: String?
 }
 
 
 struct ProviderDetails : Codable {
     let UserId : Int?
     let name : String?
-    let first_name: String?
     let email : String?
     let phone : String?
     let otp : String?
@@ -57,7 +54,6 @@ struct ProviderDetails : Codable {
     let deviceType : String?
     let createdAt : String?
     let rating : Float?
-    let booking_date : String?
 
 }
 struct SubcategoryIdData : Codable {
@@ -68,7 +64,6 @@ struct SubcategoryIdData : Codable {
 struct UserDetailsData : Codable {
     let UserId : Int?
     let name : String?
-    let first_name: String?
     let email : String?
     let phone : String?
     let otp : String?
@@ -85,5 +80,4 @@ struct UserDetailsData : Codable {
     let deviceID : String?
     let deviceType : String?
     let createdAt : String?
-    let booking_date : String?
 }

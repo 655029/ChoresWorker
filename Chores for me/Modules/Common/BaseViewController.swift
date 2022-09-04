@@ -32,7 +32,7 @@ class BaseViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-      //  CheckTimeFunc()
+
         hideKeyboardWhenTappedAround()
     }
 
@@ -42,12 +42,14 @@ class BaseViewController: UIViewController {
 
     // MARK: - Additional Helpers
     
-    
+
     // MARK: - Additional Helpers
     func showImagePicker(){
+          
            let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
            alertController.popoverPresentationController?.sourceView = self.view
            alertController.popoverPresentationController?.sourceRect = CGRect(origin: self.view.center, size: CGSize.zero)
+          
            if UIImagePickerController.isSourceTypeAvailable(.camera) {
                alertController.addAction(UIAlertAction(title: NSLocalizedString("Camera", comment: ""), style: .default) { _ in
                    self.cropImagePicker.sourceType = .camera
@@ -62,42 +64,6 @@ class BaseViewController: UIViewController {
            }))
            self.present(alertController, animated: true, completion: nil)
        }
-}
-
-
-extension UIViewController {
-    func CheckTimeFunc(){
-        let componets = Calendar.current.dateComponents([.hour, .minute, .second], from: Date())
-        let currentHour = componets.hour
-        if currentHour! < 7 || currentHour! > 21 {
-            print ("show popup")
-            self.TimePopupAlert()
-        } else {
-            print ("do nothing")
-           
-        }
-    }
-    @objc func TimePopupAlert(){
-        let alertController = UIAlertController (title: "Curfew Notice", message: "You can use this app only 7am to 10pm", preferredStyle: .alert)
-
-        alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
-            self.exitApp()
-        }))
-        //alertController.addAction(firstAction)
-
-        let alertWindow = UIWindow(frame: UIScreen.main.bounds)
-
-        alertWindow.rootViewController = UIViewController()
-       alertWindow.windowLevel = UIWindow.Level.alert + 1;
-        alertWindow.makeKeyAndVisible()
-
-        alertWindow.rootViewController?.present(alertController, animated: true, completion: nil)
-
-    }
-
-    func exitApp() {
-           exit(0)
-    }
 
 }
 

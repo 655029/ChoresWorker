@@ -7,10 +7,7 @@
 
 import UIKit
 import Designable
-
-
 class TwoStepVerificationViewController: ServiceBaseViewController {
-    
     
     // MARK: - Outlets
     @IBOutlet weak private var backButton: UIButton!
@@ -20,14 +17,17 @@ class TwoStepVerificationViewController: ServiceBaseViewController {
     @IBOutlet var countDownLabel: UILabel!
     @IBOutlet var numberLabel: UILabel!
     
-    
     // MARK: - Properties
     var otpFeild: Int?
     var otpTimer = Timer()
     var totalTime = 31
     
+    // MARK: - Lifecycle
+    
+    // Custom initializers go here
     
     // MARK: - View Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = AppString.TWO_STEP_VERIFICATION
@@ -46,9 +46,13 @@ class TwoStepVerificationViewController: ServiceBaseViewController {
     self.navigationController?.navigationBar.tintColor = UIColor.white
 
     }
+    // MARK: - Layout
     
-        
     // MARK: - User Interaction
+//    override func viewWillAppear(_ animated: Bool) {
+//        navigationController?.navigationBar.isHidden = true
+//    }
+    
     @IBAction func continueButtonAction(_ sender: Any) {
         if  verificationTextField.text == "" {
             openAlert(title: "Chores for me", message: "Please Enter Valid Otp", alertStyle: .alert, actionTitles: ["OK"], actionStyles: [.default], actions: [{ _ in
@@ -96,7 +100,6 @@ class TwoStepVerificationViewController: ServiceBaseViewController {
                     self.hideActivity()
                     let status = gitData.status
                     if status == 200{
-                        self.getUserProfile()
                         self.navigate(.allowLocation)
                     } else {
                         self.showMessage(gitData.message ?? "")
@@ -108,32 +111,7 @@ class TwoStepVerificationViewController: ServiceBaseViewController {
             }
         }.resume()
     }
-    
-    func getUserProfile() {
-        showActivity()
-        var request = URLRequest(url: URL(string: "http://3.18.59.239:3000/api/v1/get-user-Profile")!,timeoutInterval: Double.infinity)
-        request.addValue("\(UserStoreSingleton.shared.Token ?? "")", forHTTPHeaderField:"Authorization")
-        request.httpMethod = "GET"
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            //self.hideActivity()
-            do {
-                let json =  try JSONDecoder().decode(GetUserProfileModel.self, from: data ?? Data())
-                DispatchQueue.main.async {
-                    self.hideActivity()
-                    
-                    let photoUrl = URL(string: "\(json.data?.image ?? "")")
-                    UserStoreSingleton.shared.socailProfileImage = json.data?.image ?? ""
-                    UserStoreSingleton.shared.userID = json.data?.userId
-                }
-            } catch {
-                self.hideActivity()
-                print(error)
-            }
-        }
-        task.resume()
-    }
-    
-    func sendOtp() {
+    func sendOtp(){
         showActivity()
         guard let gitUrl = URL(string:"http://3.18.59.239:3000/api/v1/sendOtp") else { return }
         print(gitUrl)
@@ -169,7 +147,6 @@ class TwoStepVerificationViewController: ServiceBaseViewController {
             }
         }.resume()
     }
-    
     @objc func updateTimer() {
         if(totalTime > 0) {
             totalTime = totalTime - 1

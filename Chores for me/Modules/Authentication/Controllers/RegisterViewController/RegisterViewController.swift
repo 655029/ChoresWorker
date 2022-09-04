@@ -10,14 +10,10 @@ import ADCountryPicker
 import Alamofire
 import GoogleSignIn
 import FirebaseAuth
-import Designable
-import FBSDKLoginKit
-import FBSDKCoreKit
 
 class RegisterViewController: UIViewController,ADCountryPickerDelegate {
-    
-    
     // MARK: - Outlets
+    
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var phoneNumberTextField: UITextField!
@@ -25,76 +21,67 @@ class RegisterViewController: UIViewController,ADCountryPickerDelegate {
     @IBOutlet weak var confirmPasswordTextfeild: UITextField!
     @IBOutlet weak var uploadImageView: UIImageView!
     @IBOutlet weak var countryCodeTextFeild: UITextField!
+    
     @IBOutlet weak var lastNameField: AppTextField!
-    @IBOutlet weak private var showPasswordBtnIcon: UIButton!
-    @IBOutlet weak private var showConfirmPasswordBtnIcon: UIButton!
-    @IBOutlet weak var facebookLoginButton: DesignableButton!
-    
-    
     // MARK: - Properties
     var imagePicker = UIImagePickerController()
     let picker = ADCountryPicker()
     var photoURL : URL!
     var imageForm: Data?
     var imageResponse = String()
-    static var signInEmail : String?
+    var GoogleLogin: gmail_LoginDelegate!
+    var FacebookLogin: facebookLogin_delegate!
+    var signInEmail : String?
     static var socialKey : String?
     var nameKey: String?
     var phoneNumberKey : String?
-    static var displayName: String?
-    var showPasswordIcon: Bool = true
-    var showConfirmPasswordIcon: Bool = true
+    var displayName: String?
+
+    // MARK: - Lifecycle
     
+    // Custom initializers go here
     
     // MARK: - View Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.applyFinishingTouchesToUIElements()
+        //   router = HTTPRequest<AuthenticationEndPoint>()
+        nameTextField.delegate = self
+        emailTextField.delegate = self
+        phoneNumberTextField.delegate = self
+        lastNameField.delegate = self
+        
+        passwordTextField.delegate = self
+        confirmPasswordTextfeild.delegate = self
+        imagePicker.delegate = self
+        picker.delegate = self
+        picker.showCallingCodes = true
+        picker.showFlags = true
+        picker.pickerTitle = "Select a Country"
+        picker.defaultCountryCode = "US"
+        picker.forceDefaultCountryCode = true
+        navigationController?.navigationBar.isHidden = true
+        navigationItem.setHidesBackButton(true, animated: true)
+        navigationController?.navigationBar.tintColor = AppColor.primaryBackgroundColor
     }
+   
     
+    // MARK: - Layout
     
     // MARK: - User Interaction
-    @objc func didTappedFacebookButton(_ sender: DesignableButton) {
-        self.getFacebookUserInfo()
-        
+    
+    @IBAction func facebookButton(_ sender: Any) {
+        FacebookLogin = facebookLogin_delegate(delegate: self, viewController: self)
     }
-    
-    
-     private func getFacebookUserInfo() {
-         self.showActivity()
-            let loginManager = LoginManager()
-         self.hideActivity()
-                loginManager.logIn(permissions: ["email","public_profile"], from: self) { (result, err) in
-                    if result?.isCancelled == false{
-                    let request = GraphRequest(graphPath: "me", parameters:  ["fields": "id, email, name, first_name, last_name, picture.type(large)"], tokenString: AccessToken.current?.tokenString, version: .none, httpMethod: .get)
-                    self.showActivity()
-                    request.start { (response, result, err) in
-                        self.hideActivity()
-                        if err == nil{
-                            let resultDict = result as? [String:Any] ?? [:]
-                            print(resultDict)
-                            RegisterViewController.socialKey = resultDict["id"] as? String
-                            RegisterViewController.displayName = resultDict["name"] as? String
-                            RegisterViewController.signInEmail = resultDict["email"] as? String
-                            UserStoreSingleton.shared.name = resultDict["first_name"] as? String
-                            UserStoreSingleton.shared.lastname = resultDict["last_name"] as? String
-                            self.navigate(.facebookLogin)
-                        }else{
-                            self.showMessage(err?.localizedDescription ?? "")
-                        }
-                    }
-                }
-            }
-        }
-    
     @IBAction func googleButton(_ sender: Any) {
-        GIDSignIn.sharedInstance().delegate = self
-        GIDSignIn.sharedInstance().signIn()
+        GoogleLogin = gmail_LoginDelegate(delegate: self, viewController: self)
     }
     
     @IBAction func registerButtonAction(_ sender: Any) {
         if let name = nameTextField.text, let email = emailTextField.text, let phoneNumber = phoneNumberTextField.text, let password = passwordTextField.text, let confirmPassword = confirmPasswordTextfeild.text, let imageSystem =  UIImage(named: "upload profile picture") {
+            
             if uploadImageView.image?.pngData() == imageSystem.pngData()  {
+                
                 openAlert(title: "Chores for me", message: "Please Upload Profile Image", alertStyle: .alert, actionTitles: ["OK"], actionStyles: [.default], actions: [{_ in
                 }])
             }
@@ -160,10 +147,10 @@ class RegisterViewController: UIViewController,ADCountryPickerDelegate {
         alert.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil))
         
         switch UIDevice.current.userInterfaceIdiom {
-            case .pad:
-                alert.popoverPresentationController?.permittedArrowDirections = .up
-            default:
-                break
+        case .pad:
+            alert.popoverPresentationController?.permittedArrowDirections = .up
+        default:
+            break
         }
         self.present(alert, animated: true, completion: nil)
         
@@ -186,10 +173,10 @@ class RegisterViewController: UIViewController,ADCountryPickerDelegate {
         alert.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil))
         
         switch UIDevice.current.userInterfaceIdiom {
-            case .pad:
-                alert.popoverPresentationController?.permittedArrowDirections = .up
-            default:
-                break
+        case .pad:
+            alert.popoverPresentationController?.permittedArrowDirections = .up
+        default:
+            break
         }
         self.present(alert, animated: true, completion: nil)
     }
@@ -199,29 +186,6 @@ class RegisterViewController: UIViewController,ADCountryPickerDelegate {
         self.present(pickerNavigationController, animated: true, completion: nil)
     }
     
-    @IBAction func didTappedShowPasswordIcon(_ sender: UIButton) {
-        showPasswordBtnIcon.isSelected.toggle()
-        if(showPasswordIcon == true) {
-            passwordTextField.isSecureTextEntry = false
-        } else {
-            passwordTextField.isSecureTextEntry = true
-        }
-        
-        showPasswordIcon = !showPasswordIcon
-    }
-    
-    @IBAction func didtappedShowConfirmPasswordIcon(_ sender: UIButton) {
-        showConfirmPasswordBtnIcon.isSelected.toggle()
-        if(showConfirmPasswordIcon == true) {
-            confirmPasswordTextfeild.isSecureTextEntry = false
-        } else {
-            confirmPasswordTextfeild.isSecureTextEntry = true
-        }
-        
-        showConfirmPasswordIcon = !showConfirmPasswordIcon
-    }
-    
-    
     // MARK: - CountryPicker View Delegate
     func countryPicker(_ picker: ADCountryPicker, didSelectCountryWithName name: String, code: String, dialCode: String) {
         countryCodeTextFeild.text = dialCode
@@ -230,46 +194,6 @@ class RegisterViewController: UIViewController,ADCountryPickerDelegate {
     }
     
     // MARK: - Additional Helpers
-    private func applyFinishingTouchesToUIElements() {
-        self.facebookLogin()
-        self.googleLogin()
-        nameTextField.delegate = self
-        emailTextField.delegate = self
-        phoneNumberTextField.delegate = self
-        lastNameField.delegate = self
-        passwordTextField.delegate = self
-        confirmPasswordTextfeild.delegate = self
-        imagePicker.delegate = self
-        facebookLoginButton.addTarget(self, action: #selector(didTappedFacebookButton(_:)), for: .touchUpInside)
-        picker.delegate = self
-        picker.showCallingCodes = true
-        picker.showFlags = true
-        picker.pickerTitle = "Select a Country"
-        picker.defaultCountryCode = "US"
-        picker.forceDefaultCountryCode = true
-        navigationController?.navigationBar.isHidden = true
-        navigationItem.setHidesBackButton(true, animated: true)
-        navigationController?.navigationBar.tintColor = AppColor.primaryBackgroundColor
-    }
-    
-    private func facebookLogin() {
-        if let token = AccessToken.current,
-           !token.isExpired {
-            // User is logged in, do work such as go to next view controller.
-        }
-        
-    }
-    
-    private func googleLogin() {
-        GIDSignIn.sharedInstance().presentingViewController = self
-//        if GIDSignIn.sharedInstance().hasPreviousSignIn() {
-//            print("Allresdy Login")
-//            print(GIDSignIn.sharedInstance().restorePreviousSignIn())
-//        }
-        
-    }
-    
-    
     func openCamera()
     {
         if(UIImagePickerController .isSourceTypeAvailable(UIImagePickerController.SourceType.camera))
@@ -291,7 +215,7 @@ class RegisterViewController: UIViewController,ADCountryPickerDelegate {
         imagePicker.allowsEditing = true
         self.present(imagePicker, animated: true, completion: nil)
     }
-    
+        
     
     //MARK: - UIImagePickerDelegate Methods
     //    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -328,6 +252,7 @@ class RegisterViewController: UIViewController,ADCountryPickerDelegate {
                             UserStoreSingleton.shared.name = self.nameTextField.text
                             UserStoreSingleton.shared.lastname = self.lastNameField.text
                             sendOtp()
+                            self.navigate(.twosetpVerification)
                         } else {
                             showMessage(json.message ?? "")
                         }
@@ -341,8 +266,7 @@ class RegisterViewController: UIViewController,ADCountryPickerDelegate {
             }
         }.resume()
     }
-    
-    func sendOtp() {
+    func sendOtp(){
         //showActivity()
         guard let gitUrl = URL(string:"http://3.18.59.239:3000/api/v1/sendOtp") else { return }
         print(gitUrl)
@@ -365,7 +289,6 @@ class RegisterViewController: UIViewController,ADCountryPickerDelegate {
                     UserStoreSingleton.shared.OtpCode = gitData.data?.oTP
                     if gitData.status == 200{
                         showMessage(gitData.message ?? "")
-                        self.navigate(.twosetpVerification)
                     } else{
                         showMessage(gitData.message ?? "")
                     }
@@ -390,45 +313,45 @@ class RegisterViewController: UIViewController,ADCountryPickerDelegate {
                 multipartFormData.append(value.data(using: String.Encoding.utf8)!, withName: key)
             }
         },
-                         to:"http://3.18.59.239:3000/api/v1/upload")
+        to:"http://3.18.59.239:3000/api/v1/upload")
         { (result) in
             switch result {
-                case .success(let upload, _, _):
-                    upload.uploadProgress(closure: { (progress) in
-                        // debugPrint("Upload Progress: \(progress.fractionCompleted)")
-                    })
-                    upload.responseJSON { response in
-                        // debugPrint(response.result.value as Any)
-                        if let data = response.data {
-                            self.hideActivity()
-                            do {
-                                if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
-                                    // try to read out a dictionary
-                                    print(json)
-                                    if let data = json["data"] as? String {
-                                        print(data)
-                                        self.imageResponse = data
-                                    }
+            case .success(let upload, _, _):
+                upload.uploadProgress(closure: { (progress) in
+                    // debugPrint("Upload Progress: \(progress.fractionCompleted)")
+                })
+                upload.responseJSON { response in
+                    // debugPrint(response.result.value as Any)
+                    if let data = response.data {
+                        self.hideActivity()
+                        do {
+                            if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+                                // try to read out a dictionary
+                                print(json)
+                                if let data = json["data"] as? String {
+                                    print(data)
+                                    self.imageResponse = data
                                 }
-                            } catch let error as NSError {
-                                self.hideActivity()
-                                print("Failed to load: \(error.localizedDescription)")
                             }
+                        } catch let error as NSError {
+                            self.hideActivity()
+                            print("Failed to load: \(error.localizedDescription)")
                         }
                     }
-                    //   self.hideActivity()
-                    
-                case .failure(let encodingError):
-                    debugPrint(encodingError)
+                }
+            //   self.hideActivity()
+            
+            case .failure(let encodingError):
+                debugPrint(encodingError)
             }
         }
     }
-    
     func socialSignUpAPI(){
         guard let gitUrl = URL(string:"http://3.18.59.239:3000/api/v1/social-signUp") else { return }
+        //print(gitUrl)
         let request = NSMutableURLRequest(url: gitUrl)
-        let parameters = ["name":RegisterViewController.displayName,
-                          "email": RegisterViewController.signInEmail,
+        let parameters = ["name":displayName,
+                          "email": signInEmail,
                           "image":"",
                           "phone": phoneNumberKey,"socialKey":RegisterViewController.socialKey,"signupType":"1"]
         let session = URLSession.shared
@@ -447,25 +370,23 @@ class RegisterViewController: UIViewController,ADCountryPickerDelegate {
                     self.hideActivity()
                     let responseMessage = gitData.status;
                     if responseMessage == 200 {
-                        self.showMessage(gitData.message ?? "")
                         UserStoreSingleton.shared.Token = gitData.data?.token
+                        self.showMessage(gitData.message ?? "")
                         self.navigate(.login)
                     }else{
                         self.showMessage(gitData.message ?? "")
-                        
+
                     }
                 }
                 
             } catch let err {
-                self.hideActivity()
+                  self.hideActivity()
                 //self.showMessage("error occured")
                 print("Err", err)
             }
         }.resume()
     }
 }
-
-
 extension String {
     
     var isPasswordValid: Bool {
@@ -492,8 +413,6 @@ extension String {
     }
     
 }
-
-
 extension RegisterViewController:  UIImagePickerControllerDelegate, UINavigationControllerDelegate
 {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any])
@@ -540,76 +459,50 @@ extension RegisterViewController:  UIImagePickerControllerDelegate, UINavigation
     }
 }
 
-
-
 // MARK: - UITextFieldDelegate
+
 extension RegisterViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         switch textField {
-            case nameTextField:
-                emailTextField.becomeFirstResponder()
-            case emailTextField:
-                phoneNumberTextField.becomeFirstResponder()
-            case phoneNumberTextField:
-                passwordTextField.becomeFirstResponder()
-            case passwordTextField:
-                confirmPasswordTextfeild.becomeFirstResponder()
-            case confirmPasswordTextfeild:
-                // Register action
-                break
-            default:
-                textField.resignFirstResponder()
+        case nameTextField:
+            emailTextField.becomeFirstResponder()
+        case emailTextField:
+            phoneNumberTextField.becomeFirstResponder()
+        case phoneNumberTextField:
+            passwordTextField.becomeFirstResponder()
+        case passwordTextField:
+            confirmPasswordTextfeild.becomeFirstResponder()
+        case confirmPasswordTextfeild:
+            // Register action
+            break
+        default:
+            textField.resignFirstResponder()
         }
+        
         
         return true
     }
 }
-
-extension RegisterViewController: LoginButtonDelegate {
-    func loginButton(_ loginButton: FBLoginButton, didCompleteWith result: LoginManagerLoginResult?, error: Error?) {
-        let token = result?.token?.tokenString
-        let request = FBSDKLoginKit.GraphRequest(graphPath: "me", parameters: ["feilds": "email,name"], tokenString: token, version: nil, httpMethod: .get)
-        request.start { (connection, result, error) in
-            print("\(String(describing: result))")
-            
-        }
-    }
+extension RegisterViewController : socialLogin_Delegate {
     
-    func loginButtonDidLogOut(_ loginButton: FBLoginButton) {
-        print("Logout")
-    }
-    
-}
-
-
-extension RegisterViewController: GIDSignInDelegate {
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        if let error = error {
-            self.hideActivity()
-            print(error)
-            return
-        }
-        let gmailUserImageUrl = GIDSignIn.sharedInstance()?.currentUser.profile.imageURL(withDimension: 120)?.absoluteString
-        if let optionalCurrentUser = GIDSignIn.sharedInstance().currentUser {
-            guard let socailKey = optionalCurrentUser.userID else {return}
-            RegisterViewController.socialKey = socailKey
-            guard let gmailUsername = optionalCurrentUser.profile.name else {return}
-            guard let userGmail = optionalCurrentUser.profile.email else {return}
-            RegisterViewController.displayName = gmailUsername
-            RegisterViewController.signInEmail = userGmail
-//            self.socialSignUpAPI()
-            self.navigate(.googleLogin)
-            
-            
-        }
+    func social_login(email: String, type: socialLoginType, token: String, deviceType: String, deviceId: String, phoneNumber: String) {
         
+        RegisterViewController.socialKey = token
+        signInEmail = email
+        phoneNumberKey = phoneNumber
+        displayName = deviceType
+        print(type)
+        socialSignUpAPI()
     }
     
-    public func sign(_ signIn: GIDSignIn!,
-                     dismiss viewController: UIViewController!) {
-        dismiss(animated: true, completion: nil)
+    func phone_Verification() {
+        print("Phone")
+    }
+    
+    func emailPsswordUserCreadted() {
+        print("Email")
     }
     
 }

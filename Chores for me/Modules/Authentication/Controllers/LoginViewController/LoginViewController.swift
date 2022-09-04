@@ -8,14 +8,23 @@
 import UIKit
 import Designable
 import CoreLocation
-import FBSDKLoginKit
-import GoogleSignIn
 
+protocol socialLogin_Delegate{
+    func social_login(email: String, type: socialLoginType, token: String,deviceType:String, deviceId: String, phoneNumber: String)
+    
+    func phone_Verification()
+    
+    func emailPsswordUserCreadted()
+}
+
+enum socialLoginType: String {
+    case facebook , google , email
+}
 
 class LoginViewController: BaseViewController {
     
-    
     // MARK: - Outlets
+    
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var facebookLoginButton: DesignableButton!
@@ -23,47 +32,43 @@ class LoginViewController: BaseViewController {
     @IBOutlet weak var appleLoginButton: DesignableButton!
     @IBOutlet weak var showAndHidePasswordButton: UIButton!
     
-    
     // MARK: - Properties
+    var GoogleLogin: gmail_LoginDelegate!
+    var FacebookLogin: facebookLogin_delegate!
     var iconClick: Bool = true
     var socailKey = [String]()
-    var mainSocailKey: String?
-    static var googleLoginName: String?
-    static var googleLoginLastName: String?
-    static var googleLoginImage: String?
     
-
+    // MARK: - Lifecycle
+    
+    // Custom initializers go here
+    
     // MARK: - View Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        GIDSignIn.sharedInstance().delegate = self
-        GIDSignIn.sharedInstance()?.presentingViewController = self
         emailTextField.delegate = self
         passwordTextField.delegate = self
         applyDesigns()
+        
         if UserStoreSingleton.shared.fcmToken == nil || UserStoreSingleton.shared.fcmToken == "" {
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
             let app = UIApplication.shared
             appDelegate.registerLocal(application: app)
         }
     }
-    
-    
     override func viewWillAppear(_ animated: Bool) {
-        GIDSignIn.sharedInstance()?.presentingViewController = self
         navigationController?.navigationBar.isHidden = true
         navigationItem.setHidesBackButton(true, animated: true)
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
     }
     
-    
     // MARK: - Layout
+    
     private func applyDesigns() {
-        self.facebookLogin()
-        self.googleLogin()
         facebookLoginButton.addSpaceBetweenImageAndTitle(spacing: 6)
         googleLoginButton.addSpaceBetweenImageAndTitle(spacing: 6)
         let imageView = UIImage(named: "square-with-round")?.withRenderingMode(.alwaysTemplate)
@@ -71,63 +76,9 @@ class LoginViewController: BaseViewController {
         let imageView2 = UIImage(named: "checkbox")?.withRenderingMode(.alwaysTemplate)
         showAndHidePasswordButton.setImage(imageView2, for: .selected)
         showAndHidePasswordButton.tintColor = .white
-        facebookLoginButton.addTarget(self, action: #selector(didTappedFacebookButton(_:)), for: .touchUpInside)
-    }
-    
-    
-    private func facebookLogin() {
-        if let token = AccessToken.current,
-           !token.isExpired {
-            // User is logged in, do work such as go to next view controller.
-        }
-        
-    }
-    
-    private func googleLogin() {
-        GIDSignIn.sharedInstance().presentingViewController = self
-//        if GIDSignIn.sharedInstance().hasPreviousSignIn() {
-//            print("Allresdy Login")
-//            print(GIDSignIn.sharedInstance().restorePreviousSignIn())
-//        }
-        
     }
     
     // MARK: - User Interaction
-    @objc func didTappedFacebookButton(_ sender: DesignableButton) {
-        self.getFacebookUserInfo()
-        
-    }
-    
-     private func getFacebookUserInfo() {
-         self.showActivity()
-            let loginManager = LoginManager()
-         self.hideActivity()
-                loginManager.logIn(permissions: ["email","public_profile"], from: self) { (result, err) in
-                    if result?.isCancelled == false{
-                    let request = GraphRequest(graphPath: "me", parameters:  ["fields": "id, email, name, first_name, last_name, picture.type(large)"], tokenString: AccessToken.current?.tokenString, version: .none, httpMethod: .get)
-                    self.showActivity()
-                    request.start { (response, result, err) in
-                        self.hideActivity()
-                        if err == nil{
-                            let resultDict = result as? [String:Any] ?? [:]
-                            print(resultDict)
-                            self.mainSocailKey = resultDict["id"] as? String
-                            RegisterViewController.displayName = resultDict["name"] as? String
-                            UserStoreSingleton.shared.email = resultDict["email"] as? String
-                            UserStoreSingleton.shared.name = resultDict["first_name"] as? String
-                            UserStoreSingleton.shared.lastname = resultDict["last_name"] as? String
-                            let dataDict = resultDict["picture"] as? [String:Any] ?? [:]
-                            let imageDict = dataDict["data"] as? [String:Any] ?? [:]
-                            UserStoreSingleton.shared.socailProfileImage = imageDict["url"] as? String 
-                            self.socialSignInAPI()
-                        }else{
-                            self.showMessage(err?.localizedDescription ?? "")
-                        }
-                    }
-                }
-            }
-        }
-    
     
     @IBAction func loginButtonAction(_ sender: Any) {
         if  emailTextField.text == ""{
@@ -152,7 +103,6 @@ class LoginViewController: BaseViewController {
             }
         }
     }
-    
     @IBAction func forgotPasswordButtonAction(_ sender: Any) {
         navigate(.forgotPassword)
     }
@@ -172,38 +122,46 @@ class LoginViewController: BaseViewController {
         //        showAndHidePasswordButton.isSelected.toggle()
         showAndHidePasswordButton.isSelected = !showAndHidePasswordButton.isSelected
         passwordTextField.isSecureTextEntry = !showAndHidePasswordButton.isSelected
+        
     }
     
-    @IBAction func didTappedGoogleSignInButton(_ sender: UIButton) {
-        GIDSignIn.sharedInstance()?.presentingViewController = self
-        GIDSignIn.sharedInstance().delegate = self
-        GIDSignIn.sharedInstance().signIn()
+    @IBAction func btn_Facebook(_ sender: UIButton) {
+        FacebookLogin = facebookLogin_delegate(delegate: self, viewController: self)
     }
     
+    @IBAction func btn_Google(_ sender: UIButton) {
+        GoogleLogin = gmail_LoginDelegate(delegate: self, viewController: self)
+    }
+    
+    
+    // MARK: - Additional Helpers
 }
 
 // MARK: - UITextFieldDelegate
+
 extension LoginViewController: UITextFieldDelegate {
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         switch textField {
-            case emailTextField:
-                passwordTextField.becomeFirstResponder()
-            case passwordTextField:
-                break
-            default:
-                textField.resignFirstResponder()
+        case emailTextField:
+            passwordTextField.becomeFirstResponder()
+        case passwordTextField:
+            break
+        default:
+            textField.resignFirstResponder()
         }
         
         return true
     }
-    
-    private func userLogin() {
+    func userLogin() {
         //start loader here
         showActivity()
         guard let gitUrl = URL(string:"http://3.18.59.239:3000/api/v1/login") else { return }
         //print(gitUrl)
+        
         let request = NSMutableURLRequest(url: gitUrl)
+        
         let parameters = [
             "email" :emailTextField.text ?? "",
             "password": passwordTextField.text ?? "",
@@ -216,7 +174,9 @@ extension LoginViewController: UITextFieldDelegate {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.httpBody = try! JSONSerialization.data(withJSONObject: parameters, options: [])
+        
         session.dataTask(with: request as URLRequest) { data, response, error in
+            
             guard let data = data else { return }
             do {
                 let gitData = try JSONDecoder().decode(LoginModel.self, from: data)
@@ -231,7 +191,7 @@ extension LoginViewController: UITextFieldDelegate {
                         if gitData.data?.user_verified == 0{
                             self.sendOtp()
                             self.navigate(.twosetpVerification)
-                        }else{
+                        }else{ 
                             UserStoreSingleton.shared.Token = headersvalue
                             UserStoreSingleton.shared.phoneNumer = phoneNumber
                             UserStoreSingleton.shared.email = self.emailTextField.text
@@ -249,7 +209,7 @@ extension LoginViewController: UITextFieldDelegate {
                             }
                         }
                     } else{
-                        self.showMessage(gitData.message ?? "")
+                         self.showMessage(gitData.message ?? "")
                     }
                 }
             } catch let err {
@@ -259,7 +219,7 @@ extension LoginViewController: UITextFieldDelegate {
             }
         }.resume()
     }
-    
+        
     
     func getUserProfile(){
         var request = URLRequest(url: URL(string: "http://3.18.59.239:3000/api/v1/get-user-Profile")!,timeoutInterval: Double.infinity)
@@ -280,12 +240,10 @@ extension LoginViewController: UITextFieldDelegate {
         }
         task.resume()
     }
-    
-    
     func sendOtp(){
         guard let gitUrl = URL(string:"http://3.18.59.239:3000/api/v1/sendOtp") else { return }
         print(gitUrl)
-        
+
         let request = NSMutableURLRequest(url: gitUrl)
         let phoneNumber = "\(UserStoreSingleton.shared.Dialcode ?? "")\(UserStoreSingleton.shared.phoneNumer ?? "")"
         let parameters = ["phone": phoneNumber,"signupType": "1"]
@@ -295,7 +253,7 @@ extension LoginViewController: UITextFieldDelegate {
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.httpBody = try! JSONSerialization.data(withJSONObject: parameters, options: [])
         session.dataTask(with: request as URLRequest) { [self] data, response, error in
-            
+
             guard let data = data else { return }
             do {
                 let gitData = try JSONDecoder().decode(SendOtpModel.self, from: data)
@@ -314,128 +272,65 @@ extension LoginViewController: UITextFieldDelegate {
             }
         }.resume()
     }
-    
-    
-    func socialSignInAPI() {
-        self.showActivity()
-        guard let gitUrl = URL(string:"http://3.18.59.239:3000/api/v1/social-signIn") else { return }
-        let request = NSMutableURLRequest(url: gitUrl)
-        let parameters = ["socialKey": mainSocailKey,"signUpType":"1"]
-        let session = URLSession.shared
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.httpBody = try! JSONSerialization.data(withJSONObject: parameters, options: [])
-        self.hideActivity()
-        session.dataTask(with: request as URLRequest) { data, response, error in
-            guard let data = data else { return }
-            do {
-                let gitData = try JSONDecoder().decode(SocialSignInModel.self, from: data)
-                print("response data:", gitData)
-                DispatchQueue.main.async {
-                    let phoneNumber = gitData.data?.phone
-                    let headersvalue = gitData.data?.token
-                    let responseMessage = gitData.status
-                    if responseMessage == 200 {
-                        UserStoreSingleton.shared.isLoggedIn = true
-                        UserStoreSingleton.shared.Token = headersvalue
-                        if gitData.data?.user_verified == 0{
-                            self.sendOtp()
-                            self.navigate(.twosetpVerification)
-                        }
-                    
-                        else {
-                            self.showMessage(gitData.message ?? "")
-                            UserStoreSingleton.shared.phoneNumer = phoneNumber
-                            UserStoreSingleton.shared.userToken = gitData.data?.token
-                            RootRouter().loadMainHomeStructure()
-                        }
-                     
-                    }
-                    else{
-                        self.showMessage(gitData.message ?? "")
-                    }
-                    
-                }
-                
-            } catch let err {
-                print("Err", err)
-            }
-        }.resume()
-    }
-    
 }
-extension LoginViewController: LoginButtonDelegate {
-    func loginButton(_ loginButton: FBLoginButton, didCompleteWith result: LoginManagerLoginResult?, error: Error?) {
-        let token = result?.token?.tokenString
-        let request = FBSDKLoginKit.GraphRequest(graphPath: "me", parameters: ["feilds": "email,name"], tokenString: token, version: nil, httpMethod: .get)
-        request.start { (connection, result, error) in
-            print("\(String(describing: result))")
+func socialSignInAPI(){
+    guard let gitUrl = URL(string:"http://3.18.59.239:3000/api/v1/social-signIn") else { return }
+    let request = NSMutableURLRequest(url: gitUrl)
+    let parameters = ["socialKey": RegisterViewController.socialKey,"signupType":"1"]
+    let session = URLSession.shared
+    request.httpMethod = "POST"
+    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+    request.addValue("application/json", forHTTPHeaderField: "Accept")
+    request.httpBody = try! JSONSerialization.data(withJSONObject: parameters, options: [])
+    
+    session.dataTask(with: request as URLRequest) { data, response, error in
+        
+        guard let data = data else { return }
+        do {
+            let gitData = try JSONDecoder().decode(SocialSignInModel.self, from: data)
+            print("response data:", gitData)
+            DispatchQueue.main.async {
+                let phoneNumber = gitData.data?.phone
+                let headersvalue = gitData.data?.token
+                let responseMessage = gitData.status
+                if responseMessage == 200 {
+                    UserStoreSingleton.shared.isLoggedIn = true
+                    UserStoreSingleton.shared.Token = headersvalue
+                    UserStoreSingleton.shared.phoneNumer = phoneNumber
+                    UserStoreSingleton.shared.userToken = gitData.data?.token
+                    RootRouter().loadMainHomeStructure()
+                }
+                else{
+                  //  self.showMessage(gitData.message ?? "")
+
+                }
+
+            }
             
+        } catch let err {
+            print("Err", err)
         }
-    }
-    
-    func loginButtonDidLogOut(_ loginButton: FBLoginButton) {
-        print("Logout")
-    }
-    
+    }.resume()
 }
 
-
-extension LoginViewController: GIDSignInDelegate {
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        if let error = error {
-            self.hideActivity()
-            print(error)
-            return
-        }
+extension LoginViewController : socialLogin_Delegate {
+    func social_login(email: String, type: socialLoginType, token: String, deviceType: String, deviceId: String, phoneNumber: String) {
+        socialSignInAPI()
+        print(token)
         
-//        guard let user = signIn.Authentication else {
-//            self.hideActivity()
-//
-//        }
-        
-        if let optionalCurrentUser = GIDSignIn.sharedInstance().currentUser {
-            let gmailUserImageUrl = GIDSignIn.sharedInstance()?.currentUser.profile.imageURL(withDimension: 120)?.absoluteString
-            guard let socailKey = optionalCurrentUser.userID else {return}
-            mainSocailKey = socailKey
-            guard let gmailUsername = optionalCurrentUser.profile.name else {return}
-            let firstName = gmailUsername.byWords.first
-            let lastName = gmailUsername.byWords.last
-            guard let email = optionalCurrentUser.profile.email else {return}
-            UserStoreSingleton.shared.email = email
-            UserStoreSingleton.shared.profileImage = gmailUserImageUrl
-            let separated = gmailUsername.split(separator: " ").map { String($0) }
-                if let firstName = separated.first {
-                    let firstValue = String(firstName)
-                    UserStoreSingleton.shared.name = firstValue
-                    LoginViewController.googleLoginName = firstName
-                }
-            if let lastName = separated.last {
-                let lastValue = String(lastName)
-                UserStoreSingleton.shared.lastname = lastValue
-                LoginViewController.googleLoginLastName = lastValue
-            }
-            self.socialSignInAPI()
-        }
     }
     
-    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
-        print("Dissconnect")
+    func phone_Verification() {
+        print("Phone")
     }
     
-//    func sign(_ signIn: GIDSignIn!, dismiss viewController: UIViewController!) {
-//            self.dismiss(animated: true, completion: nil)
-//        }
+    func emailPsswordUserCreadted() {
+        print("Email")
+    }
+    
     
 }
 
-extension StringProtocol {
-    var byWords: [SubSequence] {
-        var byWords: [SubSequence] = []
-        enumerateSubstrings(in: startIndex..., options: .byWords) { _, range, _, _ in
-            byWords.append(self[range])
-        }
-        return byWords
-    }
-}
+
+
+

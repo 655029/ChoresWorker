@@ -46,7 +46,7 @@ struct GetUserProfileModel : Codable {
 struct GetUserProfileData : Codable {
     let userId : Int?
     let name : String?
-    var email : String?
+    let email : String?
     let phone : String?
     let otp : String?
     let password : String?

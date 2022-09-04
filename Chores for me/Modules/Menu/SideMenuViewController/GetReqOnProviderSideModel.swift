@@ -49,7 +49,6 @@ struct GetReqOnProviderSideModelData : Codable {
     let createdAt : String?
     let booking_date : String?
     let totalTime : String?
-   // let booking_date : String?
 
     enum CodingKeys: String, CodingKey {
 
@@ -88,7 +87,7 @@ struct SubcategoryId : Codable {
 }
 struct UserDetails : Codable {
     let userId : Int?
-    let first_name : String?
+    let name : String?
     let phone : String?
     let image : String?
     let email : String?
@@ -98,7 +97,7 @@ struct UserDetails : Codable {
     enum CodingKeys: String, CodingKey {
 
         case userId = "UserId"
-        case first_name = "first_name"
+        case name = "name"
         case phone = "phone"
         case image = "image"
         case email = "email"

@@ -14,7 +14,8 @@ import DropDown
 var TestComeFrom = "MapScreen"
 class ChooseYourCityViewController: ServiceBaseViewController {
     
-
+    
+    
     // MARK: - Outlets
     
     @IBOutlet weak var locationTextField: UITextField!
@@ -42,9 +43,7 @@ class ChooseYourCityViewController: ServiceBaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if UserStoreSingleton.shared.pass != nil {
-            userLogin()
-        }
+        userLogin()
         stepLabel.text = "1/5"
         locationTextField.delegate = self
         navigationItem.title = AppString.CHOOSE_YOUR_CITY
@@ -59,7 +58,6 @@ class ChooseYourCityViewController: ServiceBaseViewController {
 
     }
         override func viewWillAppear(_ animated: Bool) {
-            self.navigationController?.navigationBar.isHidden = false
             locationTextField.text = UserStoreSingleton.shared.Address
             stepLabel.text = "1/5"
             navigationItem.title = AppString.CHOOSE_YOUR_CITY

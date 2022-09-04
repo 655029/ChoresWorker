@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -116,9 +116,12 @@ City:   Delhi</string>
                                         </collectionViewFlowLayout>
                                         <cells/>
                                     </collectionView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thursday" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="yBv-dF-mvK">
-                                        <rect key="frame" x="29" y="302" width="51" height="27"/>
-                                        <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="11"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mon" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="yBv-dF-mvK">
+                                        <rect key="frame" x="29" y="302" width="50" height="27"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="50" id="dDw-I8-jif"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="13"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -186,14 +189,14 @@ City:   Delhi</string>
                                         </constraints>
                                     </imageView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="prize" translatesAutoresizingMaskIntoConstraints="NO" id="nFz-9h-J0D">
-                                        <rect key="frame" x="90" y="309.5" width="12" height="12"/>
+                                        <rect key="frame" x="81" y="309.5" width="12" height="12"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="12" id="FKT-ow-SA6"/>
                                             <constraint firstAttribute="width" constant="12" id="elV-hW-2Gd"/>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QZN-ZY-txi">
-                                        <rect key="frame" x="100" y="309" width="19.5" height="13.5"/>
+                                        <rect key="frame" x="91" y="309" width="19.5" height="13.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -228,7 +231,7 @@ City:   Delhi</string>
                                 <constraints>
                                     <constraint firstItem="jew-39-PR1" firstAttribute="leading" secondItem="PvN-oM-J9Q" secondAttribute="leading" constant="12" id="0xI-4d-MPF"/>
                                     <constraint firstItem="jBM-Bc-R23" firstAttribute="leading" secondItem="PvN-oM-J9Q" secondAttribute="leading" constant="12" id="21L-rG-31c"/>
-                                    <constraint firstItem="nFz-9h-J0D" firstAttribute="leading" secondItem="yBv-dF-mvK" secondAttribute="trailing" constant="10" id="3aZ-eU-mTA"/>
+                                    <constraint firstItem="nFz-9h-J0D" firstAttribute="leading" secondItem="yBv-dF-mvK" secondAttribute="trailing" constant="2" id="3aZ-eU-mTA"/>
                                     <constraint firstItem="NbK-So-NcG" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="yBv-dF-mvK" secondAttribute="trailing" constant="8" id="4nj-B2-vTX"/>
                                     <constraint firstItem="yBv-dF-mvK" firstAttribute="top" secondItem="jew-39-PR1" secondAttribute="bottom" constant="-21" id="5hV-69-kuD"/>
                                     <constraint firstItem="XUV-GF-aLW" firstAttribute="centerX" secondItem="gDd-Ar-jXM" secondAttribute="centerX" id="65u-pG-WPn"/>
@@ -579,7 +582,6 @@ City:   Delhi</string>
                                             <constraint firstItem="tyL-bm-Whv" firstAttribute="leading" secondItem="mh8-F5-9QJ" secondAttribute="leading" constant="8" id="JlB-Wr-JnK"/>
                                             <constraint firstItem="bKS-Mf-Cd7" firstAttribute="leading" secondItem="mh8-F5-9QJ" secondAttribute="leading" constant="8" id="KB5-g3-9JA"/>
                                             <constraint firstItem="g2P-rA-clD" firstAttribute="centerY" secondItem="Aof-nl-hQY" secondAttribute="centerY" id="KeL-8c-pUp"/>
-                                            <constraint firstItem="Um4-mZ-Dsj" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Aof-nl-hQY" secondAttribute="trailing" constant="5" id="LMP-8v-b3r"/>
                                             <constraint firstItem="Aof-nl-hQY" firstAttribute="leading" secondItem="g2P-rA-clD" secondAttribute="trailing" id="NEo-FZ-HdA"/>
                                             <constraint firstItem="yyZ-Kc-fJb" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Aof-nl-hQY" secondAttribute="trailing" constant="12" id="PVp-sB-dIk"/>
                                             <constraint firstItem="yyZ-Kc-fJb" firstAttribute="leading" secondItem="Um4-mZ-Dsj" secondAttribute="trailing" constant="8" id="TB1-gg-Cyh"/>
@@ -830,7 +832,7 @@ City:   Delhi</string>
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="EcA-ha-Zy0">
-                                    <rect key="frame" x="0.0" y="110.5" width="414" height="101"/>
+                                    <rect key="frame" x="0.0" y="99.5" width="414" height="101"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="LX2-ob-gai" customClass="DesignableButton" customModule="Designable">
@@ -856,7 +858,7 @@ City:   Delhi</string>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="csL-fK-S1q">
-                                        <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="csL-fK-S1q" id="Nvb-Ma-gSH">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
@@ -911,18 +913,18 @@ City:   Delhi</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BQD-zh-Cmu">
                                 <rect key="frame" x="0.0" y="99" width="414" height="797"/>
                                 <subviews>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ckJ-r8-bsa">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="763"/>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ckJ-r8-bsa">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="797"/>
                                         <color key="backgroundColor" name="AppPrimaryBackgroundColor"/>
                                     </tableView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tp3-B1-RRq">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="763"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="797"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CUSTOM2" translatesAutoresizingMaskIntoConstraints="NO" id="8Bz-Am-F3r">
-                                                <rect key="frame" x="157" y="301.5" width="100" height="100"/>
+                                                <rect key="frame" x="157" y="318.5" width="100" height="100"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Oops! No bookings Found" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vZe-q8-te4">
-                                                <rect key="frame" x="98.5" y="421.5" width="217" height="21"/>
+                                                <rect key="frame" x="99" y="438.5" width="216.5" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                                 <color key="textColor" name="AppPrimaryLabelColor"/>
                                                 <nil key="highlightedColor"/>
@@ -937,7 +939,7 @@ City:   Delhi</string>
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" name="AppSecondaryBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="Tp3-B1-RRq" firstAttribute="trailing" secondItem="ckJ-r8-bsa" secondAttribute="trailing" id="0H9-NP-3zZ"/>
                                     <constraint firstAttribute="trailing" secondItem="ckJ-r8-bsa" secondAttribute="trailing" id="6ST-GH-SkK"/>
@@ -945,6 +947,7 @@ City:   Delhi</string>
                                     <constraint firstItem="Tp3-B1-RRq" firstAttribute="leading" secondItem="ckJ-r8-bsa" secondAttribute="leading" id="BJa-Mp-Dlx"/>
                                     <constraint firstItem="ckJ-r8-bsa" firstAttribute="top" secondItem="BQD-zh-Cmu" secondAttribute="top" id="CUs-R2-bSU"/>
                                     <constraint firstItem="Tp3-B1-RRq" firstAttribute="centerY" secondItem="ckJ-r8-bsa" secondAttribute="centerY" id="Gdh-2h-NHn"/>
+                                    <constraint firstAttribute="bottom" secondItem="ckJ-r8-bsa" secondAttribute="bottom" id="Uci-cT-xgd"/>
                                     <constraint firstItem="ckJ-r8-bsa" firstAttribute="leading" secondItem="BQD-zh-Cmu" secondAttribute="leading" id="yYr-DR-JFi"/>
                                 </constraints>
                             </view>
@@ -959,7 +962,6 @@ City:   Delhi</string>
                             <constraint firstAttribute="trailing" secondItem="aGz-7j-xhp" secondAttribute="trailing" id="QBT-TD-qPl"/>
                             <constraint firstAttribute="bottom" secondItem="BQD-zh-Cmu" secondAttribute="bottom" id="Yo4-Sb-gj1"/>
                             <constraint firstItem="BQD-zh-Cmu" firstAttribute="top" secondItem="pRT-xg-RbG" secondAttribute="top" constant="55" id="eNL-DK-OxZ"/>
-                            <constraint firstItem="pRT-xg-RbG" firstAttribute="bottom" secondItem="ckJ-r8-bsa" secondAttribute="bottom" id="zGs-3L-uHZ"/>
                         </constraints>
                     </view>
                     <connections>
@@ -1000,18 +1002,18 @@ City:   Delhi</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uA5-cN-kDA">
                                 <rect key="frame" x="0.0" y="100" width="414" height="796"/>
                                 <subviews>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="KPP-JR-fJh">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="762"/>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="KPP-JR-fJh">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="796"/>
                                         <color key="backgroundColor" name="AppPrimaryBackgroundColor"/>
                                     </tableView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E1F-Kg-vnB">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="762"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="796"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CUSTOM2" translatesAutoresizingMaskIntoConstraints="NO" id="KMI-aB-fLU">
-                                                <rect key="frame" x="157" y="301" width="100" height="100"/>
+                                                <rect key="frame" x="157" y="318" width="100" height="100"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Oops! No History Found" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OEG-tO-91d">
-                                                <rect key="frame" x="106.5" y="421" width="201" height="21"/>
+                                                <rect key="frame" x="107" y="438" width="200.5" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                                 <color key="textColor" name="AppPrimaryLabelColor"/>
                                                 <nil key="highlightedColor"/>
@@ -1026,12 +1028,13 @@ City:   Delhi</string>
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" name="AppSecondaryBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="KPP-JR-fJh" secondAttribute="trailing" id="4Mc-4W-oXX"/>
                                     <constraint firstItem="E1F-Kg-vnB" firstAttribute="leading" secondItem="KPP-JR-fJh" secondAttribute="leading" id="7nX-sB-xuf"/>
                                     <constraint firstItem="E1F-Kg-vnB" firstAttribute="centerY" secondItem="KPP-JR-fJh" secondAttribute="centerY" id="cF7-mg-txX"/>
                                     <constraint firstItem="E1F-Kg-vnB" firstAttribute="trailing" secondItem="KPP-JR-fJh" secondAttribute="trailing" id="cos-7u-DaI"/>
+                                    <constraint firstAttribute="bottom" secondItem="KPP-JR-fJh" secondAttribute="bottom" id="ire-Z0-eNR"/>
                                     <constraint firstItem="KPP-JR-fJh" firstAttribute="top" secondItem="uA5-cN-kDA" secondAttribute="top" id="oga-eq-iys"/>
                                     <constraint firstItem="E1F-Kg-vnB" firstAttribute="top" secondItem="uA5-cN-kDA" secondAttribute="top" id="rIX-i3-YCk"/>
                                     <constraint firstItem="KPP-JR-fJh" firstAttribute="leading" secondItem="uA5-cN-kDA" secondAttribute="leading" id="wly-bW-pfg"/>
@@ -1048,7 +1051,6 @@ City:   Delhi</string>
                             <constraint firstAttribute="trailing" secondItem="97x-8A-5wR" secondAttribute="trailing" id="Z0R-A6-79t"/>
                             <constraint firstItem="97x-8A-5wR" firstAttribute="leading" secondItem="BQw-S4-4Ws" secondAttribute="leading" id="fPh-ss-3ek"/>
                             <constraint firstItem="uA5-cN-kDA" firstAttribute="leading" secondItem="BQw-S4-4Ws" secondAttribute="leading" id="m3T-TO-AGq"/>
-                            <constraint firstItem="BQw-S4-4Ws" firstAttribute="bottom" secondItem="KPP-JR-fJh" secondAttribute="bottom" id="pXe-Bf-Ckv"/>
                         </constraints>
                     </view>
                     <connections>

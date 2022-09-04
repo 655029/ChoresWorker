@@ -62,15 +62,6 @@ class ChooseLocationFromMapViewController: UIViewController, GMSMapViewDelegate 
         locationManager.requestWhenInUseAuthorization()
         self.navigationController?.navigationBar.tintColor = UIColor.white
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        navigationController?.navigationBar.isHidden = false
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        navigationController?.navigationBar.isHidden = true
-    }
-    
     override func viewDidLayoutSubviews() {
         mapView?.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
@@ -97,7 +88,7 @@ class ChooseLocationFromMapViewController: UIViewController, GMSMapViewDelegate 
     private func addSearchText() {
         searchTextField.frame = CGRect(x: 0, y: -2, width: 300, height: 35)
         searchTextField.placeholder = " Search..."
-       // searchTextField.isUserInteractionEnabled = false
+        searchTextField.isUserInteractionEnabled = false
         searchTextField.font = AppFont.font(style: .regular, size: 15)
         searchTextField.textColor = UIColor.black
         searchTextField.backgroundColor = UIColor.white

@@ -34,11 +34,8 @@
 		5709A96E27301CDD00E192EF /* JsonNotificationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5709A96D27301CDD00E192EF /* JsonNotificationData.swift */; };
 		5709A97227301CEF00E192EF /* RatingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5709A97027301CEE00E192EF /* RatingModel.swift */; };
 		5709A97327301CEF00E192EF /* ProviderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5709A97127301CEF00E192EF /* ProviderModel.swift */; };
-		57756821275F5DCE002A70C1 /* CheckTIme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57756820275F5DCD002A70C1 /* CheckTIme.swift */; };
 		57CEF9D1273CD7BF0095FCC6 /* TakeScreenShotImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CEF9D0273CD7BF0095FCC6 /* TakeScreenShotImage.swift */; };
 		57CEF9D7273CE20E0095FCC6 /* LocationPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CEF9D6273CE20E0095FCC6 /* LocationPermission.swift */; };
-		8316E38827C5037600CDEC9A /* GoogleSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8316E38727C5037600CDEC9A /* GoogleSignUpViewController.swift */; };
-		83255B1827CD02CD00263858 /* FacebookSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83255B1727CD02CD00263858 /* FacebookSignUpViewController.swift */; };
 		AB09023526F7786E0065BC43 /* HomeCollectionviewCellCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB09023326F7786E0065BC43 /* HomeCollectionviewCellCollectionViewCell.swift */; };
 		AB09023626F7786E0065BC43 /* HomeCollectionviewCellCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB09023426F7786E0065BC43 /* HomeCollectionviewCellCollectionViewCell.xib */; };
 		AB0E3D0E26F0C83F00E1BC89 /* ActivityIndicatorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0E3D0D26F0C83F00E1BC89 /* ActivityIndicatorExtension.swift */; };
@@ -60,6 +57,8 @@
 		AB6E97A026F31BB400D047B7 /* UpdateProviderLocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6E979F26F31BB300D047B7 /* UpdateProviderLocationModel.swift */; };
 		AB6E97A226F3285200D047B7 /* SocialSignInModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6E97A126F3285100D047B7 /* SocialSignInModel.swift */; };
 		AB6E97A426F3291000D047B7 /* SocialSignUpModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6E97A326F3291000D047B7 /* SocialSignUpModel.swift */; };
+		AB6E97C826F344CC00D047B7 /* GoogleLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6E97C526F344CA00D047B7 /* GoogleLogin.swift */; };
+		AB6E97C926F344CC00D047B7 /* FacebookLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6E97C726F344CC00D047B7 /* FacebookLogin.swift */; };
 		AB6E97F326F36C3500D047B7 /* BookingsHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6E97F226F36C3400D047B7 /* BookingsHistoryTableViewCell.swift */; };
 		AB7D008F26F477F100ED9052 /* UpdateProviderCatgeoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7D008E26F477F000ED9052 /* UpdateProviderCatgeoryModel.swift */; };
 		AB7D00BE26F4E20700ED9052 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7D00BC26F4E20600ED9052 /* HomeTableViewCell.swift */; };
@@ -430,11 +429,8 @@
 		5709A96D27301CDD00E192EF /* JsonNotificationData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonNotificationData.swift; sourceTree = "<group>"; };
 		5709A97027301CEE00E192EF /* RatingModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingModel.swift; sourceTree = "<group>"; };
 		5709A97127301CEF00E192EF /* ProviderModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderModel.swift; sourceTree = "<group>"; };
-		57756820275F5DCD002A70C1 /* CheckTIme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckTIme.swift; sourceTree = "<group>"; };
 		57CEF9D0273CD7BF0095FCC6 /* TakeScreenShotImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TakeScreenShotImage.swift; sourceTree = "<group>"; };
 		57CEF9D6273CE20E0095FCC6 /* LocationPermission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPermission.swift; sourceTree = SOURCE_ROOT; };
-		8316E38727C5037600CDEC9A /* GoogleSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignUpViewController.swift; sourceTree = "<group>"; };
-		83255B1727CD02CD00263858 /* FacebookSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FacebookSignUpViewController.swift; path = ../../../../../../../Desktop/FacebookSignUpViewController.swift; sourceTree = "<group>"; };
 		931634D5CD1A1F593B6A65A0 /* Pods-Chores for me.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chores for me.debug.xcconfig"; path = "Target Support Files/Pods-Chores for me/Pods-Chores for me.debug.xcconfig"; sourceTree = "<group>"; };
 		AB09023326F7786E0065BC43 /* HomeCollectionviewCellCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionviewCellCollectionViewCell.swift; sourceTree = "<group>"; };
 		AB09023426F7786E0065BC43 /* HomeCollectionviewCellCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeCollectionviewCellCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -457,6 +453,8 @@
 		AB6E979F26F31BB300D047B7 /* UpdateProviderLocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateProviderLocationModel.swift; sourceTree = "<group>"; };
 		AB6E97A126F3285100D047B7 /* SocialSignInModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialSignInModel.swift; sourceTree = "<group>"; };
 		AB6E97A326F3291000D047B7 /* SocialSignUpModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialSignUpModel.swift; sourceTree = "<group>"; };
+		AB6E97C526F344CA00D047B7 /* GoogleLogin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleLogin.swift; sourceTree = "<group>"; };
+		AB6E97C726F344CC00D047B7 /* FacebookLogin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookLogin.swift; sourceTree = "<group>"; };
 		AB6E97F226F36C3400D047B7 /* BookingsHistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingsHistoryTableViewCell.swift; sourceTree = "<group>"; };
 		AB7D008E26F477F000ED9052 /* UpdateProviderCatgeoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateProviderCatgeoryModel.swift; sourceTree = "<group>"; };
 		AB7D00BC26F4E20600ED9052 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
@@ -708,13 +706,20 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		83D6C1FA27C50241001CB864 /* SocailSignUpViewController */ = {
+		AB6E97C426F344CA00D047B7 /* Google Login */ = {
 			isa = PBXGroup;
 			children = (
-				8316E38727C5037600CDEC9A /* GoogleSignUpViewController.swift */,
-				83255B1727CD02CD00263858 /* FacebookSignUpViewController.swift */,
+				AB6E97C526F344CA00D047B7 /* GoogleLogin.swift */,
 			);
-			path = SocailSignUpViewController;
+			path = "Google Login";
+			sourceTree = "<group>";
+		};
+		AB6E97C626F344CC00D047B7 /* Facebook Login */ = {
+			isa = PBXGroup;
+			children = (
+				AB6E97C726F344CC00D047B7 /* FacebookLogin.swift */,
+			);
+			path = "Facebook Login";
 			sourceTree = "<group>";
 		};
 		ABC04FC926D3D251006F24DB /* NetworkModels */ = {
@@ -850,7 +855,6 @@
 				F46F16C826275541002D351C /* ForgotPasswrdButtonAction */,
 				F46F16C3262754F0002D351C /* TwoStepVerificationViewController */,
 				F46F16BE26275498002D351C /* RegisterViewController */,
-				83D6C1FA27C50241001CB864 /* SocailSignUpViewController */,
 				F46F16BD26275492002D351C /* LoginViewController */,
 			);
 			path = Controllers;
@@ -1017,7 +1021,6 @@
 		F4CEE6C826274CAB003C913D /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				57756820275F5DCD002A70C1 /* CheckTIme.swift */,
 				57CEF9D6273CE20E0095FCC6 /* LocationPermission.swift */,
 				57CEF9D0273CD7BF0095FCC6 /* TakeScreenShotImage.swift */,
 				5706B66F271E7521008D1E58 /* ReachiabilityCheck.swift */,
@@ -1182,6 +1185,8 @@
 			children = (
 				F46F16B926275433002D351C /* Controllers */,
 				ABEA81D126EB106B000BA137 /* Authentication.storyboard */,
+				AB6E97C626F344CC00D047B7 /* Facebook Login */,
+				AB6E97C426F344CA00D047B7 /* Google Login */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -1717,7 +1722,9 @@
 				F4CEE6EE26274CAC003C913D /* AppColor.swift in Sources */,
 				AB162B6826E9C0CB0019CC6D /* LogoutViewController.swift in Sources */,
 				AB162B7826E9C6760019CC6D /* TwoStepVerificationViewController.swift in Sources */,
+				AB6E97C826F344CC00D047B7 /* GoogleLogin.swift in Sources */,
 				5709A96E27301CDD00E192EF /* JsonNotificationData.swift in Sources */,
+				AB6E97C926F344CC00D047B7 /* FacebookLogin.swift in Sources */,
 				F4CEE6F326274CAC003C913D /* BaseViewController.swift in Sources */,
 				F4E628F4262E958700FF7700 /* VerticalButton.swift in Sources */,
 				5709A96B272FB71100E192EF /* GetProviderCategoryModel.swift in Sources */,
@@ -1775,7 +1782,6 @@
 				045B30302633472500686D4A /* BookingsViewController.swift in Sources */,
 				AB162B6A26E9C2240019CC6D /* EditProfileViewController.swift in Sources */,
 				0406B1F82634746400D4FE8D /* BookingHistoryViewController.swift in Sources */,
-				8316E38827C5037600CDEC9A /* GoogleSignUpViewController.swift in Sources */,
 				0406B22826348E8500D4FE8D /* ChoresIDViewController.swift in Sources */,
 				F4CEE6E826274CAC003C913D /* AppDelegate.swift in Sources */,
 				F4CEE6EC26274CAC003C913D /* DeeplinkHandler.swift in Sources */,
@@ -1788,8 +1794,6 @@
 				F4E3AA09262D36770029BEAD /* UploadProfilePictureViewController.swift in Sources */,
 				ABC0500826D3D35C006F24DB /* RegisterModel.swift in Sources */,
 				04B5CA7E2702D62200B6B289 /* NotificationModel.swift in Sources */,
-				57756821275F5DCE002A70C1 /* CheckTIme.swift in Sources */,
-				83255B1827CD02CD00263858 /* FacebookSignUpViewController.swift in Sources */,
 				F4F9E42D262ED6BE0099A4F1 /* BookingRequestServiceCollectionViewCell.swift in Sources */,
 				AB162B7226E9C4880019CC6D /* ChooseLocationFromMapViewController.swift in Sources */,
 			);
@@ -1937,14 +1941,14 @@
 				CODE_SIGN_ENTITLEMENTS = "Chores for me/Chores for me.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = CN4RJ4BLYU;
+				DEVELOPMENT_TEAM = E6MMJ8JFC4;
 				INFOPLIST_FILE = "Chores for me/SupportingFiles/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.app.choresfor.provider;
+				PRODUCT_BUNDLE_IDENTIFIER = com.app.choresfor.provider1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chores for me/Chores for me-Bridging-Header.h";
@@ -1964,14 +1968,14 @@
 				CODE_SIGN_ENTITLEMENTS = "Chores for me/Chores for me.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = CN4RJ4BLYU;
+				DEVELOPMENT_TEAM = E6MMJ8JFC4;
 				INFOPLIST_FILE = "Chores for me/SupportingFiles/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.app.choresfor.provider;
+				PRODUCT_BUNDLE_IDENTIFIER = com.app.choresfor.provider1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chores for me/Chores for me-Bridging-Header.h";

@@ -88,25 +88,11 @@ class UserStoreSingleton: NSObject{
             UserDefaults.standard.setValue(newValue, forKey: "phoneNumer")
         }
     }
-    var socailphoneNumber : String?{
-        get{
-            return (UserDefaults().object(forKey: "phoneNumer") as? String)
-        }set{
-            UserDefaults.standard.setValue(newValue, forKey: "phoneNumer")
-        }
-    }
     var profileImage : String?{
         get{
             return (UserDefaults().object(forKey: "profileImage") as? String)
         }set{
             UserDefaults.standard.setValue(newValue, forKey: "profileImage")
-        }
-    }
-    var socailProfileImage : String?{
-        get{
-            return (UserDefaults().object(forKey: "socailProfileImage") as? String)
-        }set{
-            UserDefaults.standard.setValue(newValue, forKey: "socailProfileImage")
         }
     }
     var name : String?{

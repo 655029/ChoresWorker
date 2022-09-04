@@ -72,10 +72,7 @@ class SideMenuViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if UserStoreSingleton.shared.name == nil {
-            UserStoreSingleton.shared.name = LoginViewController.googleLoginName
-        }
-        nameLabel.text = UserStoreSingleton.shared.name
+        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
@@ -91,6 +88,7 @@ class SideMenuViewController: UIViewController {
         }
     }
     override func viewWillAppear(_ animated: Bool) {
+        nameLabel.text = UserStoreSingleton.shared.name
         if Reachability.isConnectedToNetwork(){
             getUserProfile()
         }else{
@@ -98,8 +96,6 @@ class SideMenuViewController: UIViewController {
             }])
         }
     }
-    
-    
     // MARK: - Layout
     
     // MARK: - User Interaction
@@ -108,7 +104,7 @@ class SideMenuViewController: UIViewController {
     }
 
     // MARK: - Additional Helpers
-    func getUserProfile() {
+    func getUserProfile(){
         showActivity()
         var request = URLRequest(url: URL(string: "http://3.18.59.239:3000/api/v1/get-user-Profile")!,timeoutInterval: Double.infinity)
         request.addValue("\(UserStoreSingleton.shared.Token ?? "")", forHTTPHeaderField:"Authorization")
@@ -120,19 +116,9 @@ class SideMenuViewController: UIViewController {
                 DispatchQueue.main.async {
                     self.hideActivity()
                     self.view_Rating.rating = Double(json.data?.avgRatings ?? Double(0.0))
-                    if json.data?.first_name != nil {
-                        self.nameLabel.text = json.data?.first_name
-
-                    }
-                    if json.data?.email == nil {
-                        self.gamilLabel.text = UserStoreSingleton.shared.email
-                    }
-                    else {
-                        self.gamilLabel.text = json.data?.email
-                    }
-                    if json.data?.last_name != nil {
-                        UserStoreSingleton.shared.lastname = json.data?.last_name
-                    }
+                    self.nameLabel.text = json.data?.first_name
+                    self.gamilLabel.text = json.data?.email
+                    UserStoreSingleton.shared.lastname = json.data?.last_name
                     _ = json.data?.image
                     let photoUrl = URL(string: "\(json.data?.image ?? "")")
                     self.profileImage?.sd_setImage(with: photoUrl) { (image, error, cache, urls) in
@@ -142,13 +128,8 @@ class SideMenuViewController: UIViewController {
                             self.profileImage.image = image
                         }
                     }
-                    
-                    if json.data?.first_name != nil {
-                        UserStoreSingleton.shared.name = json.data?.first_name
-                    }
-                    else if json.data?.image != nil {
-                        UserStoreSingleton.shared.profileImage = json.data?.image
-                    }
+                    UserStoreSingleton.shared.name = json.data?.first_name
+                    UserStoreSingleton.shared.profileImage = json.data?.image
                     UserStoreSingleton.shared.userID = json.data?.userId
                 }
             } catch {

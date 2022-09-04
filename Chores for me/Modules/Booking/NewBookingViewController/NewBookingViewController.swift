@@ -72,11 +72,17 @@ class NewBookingViewController: BaseViewController {
     @IBAction func viewJobButtonAction(_ sender: Any) {
         dismiss(animated: false, completion: nil)
         self.delegate?.dissmissNotification(jobId: self.job_Id ?? 0)
+
+       // self.navigate(.jobStatus(jobId: self.job_Id ?? 0))
+
     }
 
 
     @IBAction func confirmJobButtonAction(_ sender: Any) {
         self.JobStatusAPI(status: "accept")
+
+       // self.navigate(.jobStatus(jobId: self.job_Id ?? 0))
+
     }
 
     // MARK: - Additional Helpers
@@ -90,17 +96,16 @@ class NewBookingViewController: BaseViewController {
                 let data =  try JSONDecoder().decode(JsonNotificationDataModel.self, from: data ?? Data())
                 self.json = data.data
                 DispatchQueue.main.async {
-                    self.lab_Name.text = self.json?.userDetails?.first_name
+                    self.lab_Name.text = self.json?.userDetails?.name
                     self.lbl_service.text = self.json?.categoryName
                     self.lbl_Location.text = self.json?.location
-                   // var selectedDay = self.json?.day
-                   // selectedDay = selectedDay?.replacingOccurrences(of: " \n", with: "", options: NSString.CompareOptions.literal, range: nil)
-                    let selectedDay = self.json.day
-                    let day = String(selectedDay!.dropFirst(2))
-                    self.lbl_Day.text = day
-                    let date = getDate(date: self.json?.booking_date ?? "")
-                    let time = self.json?.time ?? ""
-                    let dateTime = time + " : " + date!
+                    var selectedDay = self.json?.day
+                    selectedDay = selectedDay?.replacingOccurrences(of: " \n", with: "", options: NSString.CompareOptions.literal, range: nil)
+                    let dayWithOutDate = String((selectedDay?.dropFirst(3))!)
+                    self.lbl_Day.text = dayWithOutDate
+                    let date = getDate(date: self.json?.createdAt ?? "")
+                    let time = getTime(time: self.json?.time ?? "")
+                    let dateTime = time! + " : " + date!
                     self.lbl_DateTime.text = dateTime
                     self.lbl_Price.text = self.json?.price
                     self.view_Rating.rating = Double((self.json.providerDetails?.rating ?? 0.0) as Float)
@@ -157,7 +162,7 @@ class NewBookingViewController: BaseViewController {
                         if json.status == 200{
                             self.showMessage(json.message ?? "")
                             self.dismiss(animated: false, completion: nil)
-//                            self.delegate?.dissmissNotification(jobId: self.job_Id ?? 0)
+                            self.delegate?.dissmissNotification(jobId: self.job_Id ?? 0)
 
                         }
                     }

@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import CoreLocation
 
-public class LocationPermission : NSObject {
+public class LocationPermission :NSObject {
     var location_manager = CLLocationManager()
     
     func CheckLocationPermision() -> Bool {

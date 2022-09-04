@@ -39,7 +39,6 @@ class UploadIDProofViewController: ServiceBaseViewController, UIImagePickerContr
     var imageResponse = [String]()
     var isBackSelected = false
    var selectedIndex = 0
-    var backImageResponse: String?
     
     // MARK: - Lifecycle
     
@@ -238,7 +237,7 @@ extension UploadIDProofViewController: UIPickerViewDelegate{
     }
     func  uploadPluckImage(){
          showActivity()
-        let parameters = ["provider_ID":"\(UserStoreSingleton.shared.userID ?? 0)","exp_desciption":descriptionTextFeild.text ?? "","proof_ID":idProofTextField.text ?? "","work_exp": experinceTextFeild.text ?? "","proof_image1":"\(imageResponse[0])","proof_image2": backImageResponse!] as [String : Any]
+        let parameters = ["provider_ID":"\(UserStoreSingleton.shared.userID ?? 0)","exp_desciption":descriptionTextFeild.text ?? "","proof_ID":idProofTextField.text ?? "","work_exp": experinceTextFeild.text ?? "","proof_image1":"\(imageResponse[0])","proof_image2":String(imageResponse[1])] as [String : Any]
         let url = URL(string: "http://3.18.59.239:3000/api/v1/add-doc-provider")
         var request = URLRequest(url: url!)
         request.httpMethod = "POST"
@@ -305,8 +304,7 @@ extension UploadIDProofViewController: UIPickerViewDelegate{
                                         self.btn_frontPicture.isHidden = true
                                     }
                                     else{
-                                        self.backImageResponse = data
-                                        //self.imageResponse.insert(data, at: 1)
+                                        self.imageResponse.insert(data, at: 1)
                                         self.btn_backPicture.isHidden = true
                                     }
                                 }

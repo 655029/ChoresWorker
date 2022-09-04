@@ -37,16 +37,16 @@ class EditProfileViewController: BaseViewController, UIImagePickerControllerDele
     static var editName: String?
     var imagePicker = UIImagePickerController()
     var imagePicker1 = UIImagePickerController()
+
     var photoURL : URL!
+    var imageResponse : String?
     var selctedIndex = 0
-    var certificateResponse : String?
-    var imageResponse :String?
-    var isBackSelected = false
-    
+    var isSelected = true
     
     //MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+       
         addNavigationItems()
         addYourCertificateButton.addSpaceBetweenImageAndTitle(spacing: 5.0)
         self.navigationController?.navigationBar.tintColor = .white
@@ -54,16 +54,11 @@ class EditProfileViewController: BaseViewController, UIImagePickerControllerDele
         navigationController?.darkNavigationBar()
         navigationItem.rightBarButtonItem?.tintColor = .white
         self.emailTextField.text =   UserStoreSingleton.shared.email
-        if UserStoreSingleton.shared.phoneNumer == nil {
-            self.phoneNumberTextField.text = UserStoreSingleton.shared.socailphoneNumber
-        }
-        else {
-            self.phoneNumberTextField.text = UserStoreSingleton.shared.phoneNumer
-        }
-        nameTextField.text = UserStoreSingleton.shared.name
+        self.phoneNumberTextField.text = UserStoreSingleton.shared.phoneNumer
         EditProfileViewController.editName = nameTextField.text
         lastNameTextField.text = UserStoreSingleton.shared.lastname
         nameTextField.delegate = self
+        nameTextField.text = UserStoreSingleton.shared.name
         tabBarController?.tabBar.isHidden = true
         let profileUrl = URL(string: UserStoreSingleton.shared.profileImage ?? "")
         imageView?.sd_setImage(with: profileUrl) { (image, error, cache, urls) in
@@ -98,21 +93,16 @@ class EditProfileViewController: BaseViewController, UIImagePickerControllerDele
     }
 
     @IBAction func AddYourCertificatesButtonAction(_ sender: UIButton) {
-        isBackSelected = true
-        addYourCertificateButton.isSelected = true
-        changeImageBtn.isSelected = false
         imagePicker1.delegate = self
-       // imagePicker1.sourceType = .savedPhotosAlbum
         let alert = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { _ in
             self.openCamera(imagePicker: self.imagePicker1)
         }))
         alert.addAction(UIAlertAction(title: "Gallery", style: .default, handler: { _ in
-                                        self.imagePicker1.sourceType = UIImagePickerController.SourceType.photoLibrary
-                                        self.imagePicker1.allowsEditing = true
-                                        self.present(self.imagePicker1, animated: true, completion: nil)        }))
+            self.openGallary(imagePicker: self.imagePicker1)
+        }))
         alert.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil))
-        
+
         switch UIDevice.current.userInterfaceIdiom {
         case .pad:
             alert.popoverPresentationController?.sourceView = sender
@@ -126,18 +116,13 @@ class EditProfileViewController: BaseViewController, UIImagePickerControllerDele
 
     
     @IBAction func editProfileButtonAction(_ sender: UIButton) {
-        isBackSelected = false
-        addYourCertificateButton.isSelected = false
-        changeImageBtn.isSelected = true
         imagePicker.delegate =  self
         let alert = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { _ in
             self.openCamera(imagePicker: self.imagePicker)
         }))
         alert.addAction(UIAlertAction(title: "Gallery", style: .default, handler: { _ in
-            self.imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
-            self.imagePicker.allowsEditing = true
-            self.present(self.imagePicker, animated: true, completion: nil)
+            self.openGallary(imagePicker: self.imagePicker)
         }))
         alert.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil))
         
@@ -173,33 +158,48 @@ class EditProfileViewController: BaseViewController, UIImagePickerControllerDele
         self.present(imagePicker, animated: true, completion: nil)
     }
     
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
-        if changeImageBtn.isSelected == true  {
-            print("imageView")
-            let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
-                    imageView.image = pickedImage
-            updateProfilePicture(uploadImage: imageView.image!)
-        } else{
-            if !changeImageBtn.isSelected == true {
-                print("certificateImage")
-                let pickedImage2 = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
-                    certificateImage.image = pickedImage2
-                updateProfilePicture(uploadImage: certificateImage.image!)
+        if(picker.sourceType == .photoLibrary)
+        {
+            if let imgUrl = info[UIImagePickerController.InfoKey.referenceURL] as? URL
+            {
+                let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+                imageView.image = pickedImage
+                // print(pickedImage as Any)
+                // imageForm = pickedImage
+                let imgName = imgUrl.lastPathComponent
+                let documentDirectory = NSTemporaryDirectory()
+                let localPath = documentDirectory.appending(imgName)
+                let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+                let data = image.jpegData(compressionQuality: 0.3)! as NSData
+                data.write(toFile: localPath, atomically: true)
+                photoURL = URL.init(fileURLWithPath: localPath)
+                //print(photoURL!)
+                picker.dismiss(animated: true, completion: nil)
+                updateProfilePicture()
             }
         }
-        dismiss(animated: true, completion: nil)
-        
+        else
+        {
+            let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+            certificateImage.image = pickedImage
+            let imgName = UUID().uuidString
+            let documentDirectory = NSTemporaryDirectory()
+            let localPath = documentDirectory.appending(imgName)
+            let data = pickedImage!.jpegData(compressionQuality: 0.3)! as NSData
+            data.write(toFile: localPath, atomically: true)
+            photoURL = URL.init(fileURLWithPath: localPath)
+           // updateProfilePicture()
+            picker.dismiss(animated: true, completion: nil)
+        }
     }
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true, completion: nil)
-    }
-
-    func updateProfilePicture(uploadImage :UIImage){
+    func updateProfilePicture(){
         showActivity()
         let url = "http://3.18.59.239:3000/api/v1/upload"
-        let image = uploadImage
-        let imgData = image.jpegData(compressionQuality: 0.2)!
+        let image = imageView.image
+        let imgData = image!.jpegData(compressionQuality: 0.2)!
         
         let parameters = ["":"" ] //Optional for extra parameter
         
@@ -224,13 +224,9 @@ class EditProfileViewController: BaseViewController, UIImagePickerControllerDele
                                 print(json)
                                 if let data = json["data"] as? String {
                                     print(data)
-                                   // self.imageResponse = data as? String
-                                    if !self.isBackSelected {
-                                        self.imageResponse = data
-                                    }
-                                    else{
-                                        self.certificateResponse = data
-                                    }
+                                    self.imageResponse = data 
+                                    let url = URL(string: data)
+                                    self.imageView.sd_setImage(with: url, placeholderImage:UIImage(contentsOfFile:"user.profile.icon.png"))
                                 }
                                 self.hideActivity()
                             }
@@ -262,10 +258,8 @@ class EditProfileViewController: BaseViewController, UIImagePickerControllerDele
     func UpdateProfile(){
         let str = nameTextField.text
         let spacetrim = str?.trimmingCharacters(in: .whitespacesAndNewlines)
-        let spaceTrim = lastNameTextField.text
-        let space = spaceTrim?.trimmingCharacters(in: .whitespacesAndNewlines)
         showActivity()
-        let parameters =  ["first_name": spacetrim ?? "" ,"last_name": space ?? "","email":emailTextField.text ?? "","image": imageResponse ?? "" ] as [String : Any]
+        let parameters =  ["first_name": spacetrim ?? "" ,"last_name": lastNameTextField.text ?? "","email":emailTextField.text ?? "","image": imageResponse ?? "" ] as [String : Any]
         guard let gitUrl = URL(string:"http://3.18.59.239:3000/api/v1/update-profile") else { return }
         let request = NSMutableURLRequest(url: gitUrl)
         let session = URLSession.shared
@@ -298,6 +292,7 @@ class EditProfileViewController: BaseViewController, UIImagePickerControllerDele
     }
 
 extension EditProfileViewController: UITextFieldDelegate {
+    
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
         if textField == nameTextField {
             textField.text = nameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)

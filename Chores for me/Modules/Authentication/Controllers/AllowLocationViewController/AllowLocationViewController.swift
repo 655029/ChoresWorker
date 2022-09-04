@@ -37,6 +37,7 @@ class AllowLocationViewController: UIViewController , CLLocationManagerDelegate 
     }
     
     @IBAction func allowButtonAction(_ sender: UIButton) {
+        showActivity()
         let locatePermission = LocationPermission.CheckLocationPermision(.init())
         if !locatePermission() {
             location_manager.delegate = self
@@ -45,8 +46,7 @@ class AllowLocationViewController: UIViewController , CLLocationManagerDelegate 
             location_manager.requestAlwaysAuthorization()
         }
         else {
-//            userLogin()
-            self.navigate(.chooseYourCity)
+            userLogin()
         }
         UserStoreSingleton.shared.isLocationEnbled = locatePermission()
     }

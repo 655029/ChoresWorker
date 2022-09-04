@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -26,13 +26,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We are serviceable in the following cities." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p6u-z6-par">
-                                <rect key="frame" x="24" y="60" width="366" height="21"/>
+                                <rect key="frame" x="24" y="60" width="366" height="17.5"/>
                                 <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="15"/>
                                 <color key="textColor" name="AppPrimaryLabelColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="l4S-dD-izn">
-                                <rect key="frame" x="24" y="97" width="366" height="50"/>
+                                <rect key="frame" x="24" y="93.5" width="366" height="50"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RoB-lM-oxw">
                                         <rect key="frame" x="0.0" y="0.0" width="366" height="50"/>
@@ -70,7 +70,7 @@
                                 </subviews>
                             </stackView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="f18-9z-FmI">
-                                <rect key="frame" x="0.0" y="157" width="414" height="605"/>
+                                <rect key="frame" x="0.0" y="153.5" width="414" height="608.5"/>
                                 <color key="backgroundColor" name="AppPrimaryBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="AX2-hm-gqC">
                                     <size key="itemSize" width="128" height="128"/>
@@ -135,7 +135,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gla-fP-PpB" customClass="DesignableButton" customModule="Designable">
-                                <rect key="frame" x="24" y="782" width="366" height="48"/>
+                                <rect key="frame" x="24" y="785" width="366" height="45"/>
                                 <color key="backgroundColor" name="AppSecondaryBackgroundColor"/>
                                 <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="15"/>
                                 <inset key="contentEdgeInsets" minX="20" minY="13.5" maxX="20" maxY="13.5"/>
@@ -151,8 +151,8 @@
                                     <action selector="nextButtonAction:" destination="c9k-Hb-Dtg" eventType="touchUpInside" id="i3r-TJ-LOg"/>
                                 </connections>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vek-Ce-uQs">
-                                <rect key="frame" x="0.0" y="44" width="414" height="722"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vek-Ce-uQs">
+                                <rect key="frame" x="0.0" y="44" width="414" height="725"/>
                                 <color key="backgroundColor" name="AppPrimaryBackgroundColor"/>
                             </tableView>
                         </subviews>
@@ -179,10 +179,10 @@
     </scenes>
     <designables>
         <designable name="fo4-rN-pRk">
-            <size key="intrinsicContentSize" width="78" height="48"/>
+            <size key="intrinsicContentSize" width="78" height="45"/>
         </designable>
         <designable name="gla-fP-PpB">
-            <size key="intrinsicContentSize" width="78" height="48"/>
+            <size key="intrinsicContentSize" width="78" height="45"/>
         </designable>
     </designables>
     <resources>

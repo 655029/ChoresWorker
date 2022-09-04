@@ -24,4 +24,5 @@ class VerticalButton: DesignableButton {
             titleLabel.textAlignment = .center
         }
     }
+
 }

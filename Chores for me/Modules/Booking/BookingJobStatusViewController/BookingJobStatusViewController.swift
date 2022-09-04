@@ -144,7 +144,7 @@ class BookingJobStatusViewController: BaseViewController {
                     DispatchQueue.main.async {
                         if json.status == 200{
                             self.showMessage(json.message ?? "")
-                            self.navigationController?.popViewController(animated: true)
+                            self.navigationController?.popViewController(animated: false)
                         }
                     }
                 }catch{
@@ -199,23 +199,21 @@ class BookingJobStatusViewController: BaseViewController {
                             self.profileImageView.image = image
                         }
                     }
-                    self.nameLabel.text = self.noteData.userDetails?.first_name
+                    self.nameLabel.text = self.noteData.userDetails?.name
                     self.locationLabel.text = self.noteData.location
                     self.discriptionLabel.text = self.noteData.description
                     self.subcategoryIdData = self.noteData.subcategoryId ?? self.subcategoryIdData
                     self.lbl_ServiceAddres.text = self.noteData.location
                     self.lbl_ServiceName.text = self.noteData.categoryName
-                    let selectedDay = self.noteData.day
-//                    selectedDay = selectedDay!.replacingOccurrences(of: " \n", with: "", options: NSString.CompareOptions.literal, range: nil)
-//                    let dayWithOutDate = String((selectedDay?.dropFirst(3))!)
-                    let day = String(selectedDay!.dropFirst(2))
-                    let space = day.trimmingCharacters(in: .whitespacesAndNewlines)
-                    self.lbl_ServiceDay.text = day
+                    var selectedDay = self.noteData.day
+                    selectedDay = selectedDay!.replacingOccurrences(of: " \n", with: "", options: NSString.CompareOptions.literal, range: nil)
+                    let dayWithOutDate = String((selectedDay?.dropFirst(3))!)
+                    self.lbl_ServiceDay.text = dayWithOutDate
                     self.lbl_ServiceAmmount.text = self.noteData.price
                     
-                    let date = getDate(date: self.noteData.booking_date ?? "")
-                    let time = self.noteData.time ?? ""
-                    let dateTime = time + " : " + date!
+                    let date = getDate(date: self.noteData.createdAt ?? "")
+                    let time = getTime(time: self.noteData.time ?? "")
+                    let dateTime = time! + " : " + date!
                     self.lbl_DateTime.text = dateTime
                     self.view_Rating.rating = Double((self.noteData.providerDetails?.rating ?? 0.0) as Float)
                     let imageUrlService = URL(string: self.noteData.image ?? "")
@@ -416,9 +414,9 @@ func getDate(date: String) -> String? {
 
 func getTime(time: String) -> String? {
     let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+    dateFormatter.dateFormat = "HH:mm"
     let dateValue = dateFormatter.date(from: time)
-    dateFormatter.dateFormat = "hh:mm "
+    dateFormatter.dateFormat = "hh:mm a"
     return dateFormatter.string(from: dateValue ?? Date())
 }
 

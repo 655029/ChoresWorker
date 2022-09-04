@@ -32,8 +32,6 @@ enum Navigation: Navigatable {
     case confirmJob
     case newBooking
     case advanceBooking
-    case googleLogin
-    case facebookLogin
 }
 
 struct AppNavigation: AppNavigatable {
@@ -103,10 +101,6 @@ struct AppNavigation: AppNavigatable {
                 return Storyboard.Booking.viewController(for: NewBookingViewController.self)
             case .advanceBooking:
                 return Storyboard.Booking.viewController(for: BookingsViewController.self)
-                case .googleLogin:
-                    return Storyboard.Authentication.viewController(for: GoogleSignUpViewController.self)
-                case .facebookLogin:
-                    return Storyboard.Authentication.viewController(for: FacebookSignUpViewController.self)
             }
         }else {
             // FIXME: Implement other `Navigation`

@@ -56,6 +56,7 @@ class ChooseYourServiceViewController: ServiceBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = AppString.CHOOSE_YOUR_SERVICE
+
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(UINib(nibName: "ServiceCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "ServiceCollectionViewCell")
@@ -70,6 +71,8 @@ class ChooseYourServiceViewController: ServiceBaseViewController {
 
             }])
         }
+
+
         //        let firstVc = Storyboard.Home.viewController(for: HomeViewController.self)
         //        firstVc.tabBarItem = UITabBarItem(title: "HOME", image: UIImage(named: "home"), tag: 0)
         //        let firstNavVc = BaseNavigationController(rootViewController: firstVc)
@@ -86,8 +89,6 @@ class ChooseYourServiceViewController: ServiceBaseViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        navigationController?.navigationBar.isHidden = false
-       selectedIndexPaths.removeAll()
         if Reachability.isConnectedToNetwork(){
             getCategoriesList()
         }else{
@@ -97,12 +98,6 @@ class ChooseYourServiceViewController: ServiceBaseViewController {
         }
 
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        navigationController?.navigationBar.isHidden = true
-    }
-    
-    
     // MARK: - Layout
     func getCategoriesList(){
         self.showActivity()
@@ -115,7 +110,7 @@ class ChooseYourServiceViewController: ServiceBaseViewController {
         session.dataTask(with: request as URLRequest) { data, response, error in
             if let data = data{
                 do {
-                    let json =  try JSONDecoder().decode(CategoryListModel.self, from: data )
+                    let json =  try JSONDecoder().decode(CategoryListModel.self, from: data ?? Data())
                     debugPrint(json)
                     DispatchQueue.main.async {
                         self.dataarray = json.data ?? []

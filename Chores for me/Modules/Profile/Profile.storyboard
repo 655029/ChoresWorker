@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -1386,6 +1386,9 @@
         </scene>
     </scenes>
     <designables>
+        <designable name="5TK-bS-3Hb">
+            <size key="intrinsicContentSize" width="119" height="21"/>
+        </designable>
         <designable name="A5U-T2-2Oz">
             <size key="intrinsicContentSize" width="182" height="21"/>
         </designable>
@@ -1406,6 +1409,9 @@
         </designable>
         <designable name="YBf-p5-QAf">
             <size key="intrinsicContentSize" width="60" height="60"/>
+        </designable>
+        <designable name="iEh-0e-1vP">
+            <size key="intrinsicContentSize" width="117" height="21"/>
         </designable>
         <designable name="nel-af-VAC">
             <size key="intrinsicContentSize" width="81" height="32"/>

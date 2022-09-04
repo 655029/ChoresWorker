@@ -11,23 +11,20 @@ import SDWebImage
 
 class BookingsViewController: HomeBaseViewController {
     
-    
     // MARK: - Outlets
     @IBOutlet weak var locationButton: DesignableButton!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet var view_OopsViewBooking: UIView!
-    
-    
     // MARK: - Properties
-    static var locationForBooking: String?
     var getProviderBookingData  = [GetReqOnProviderSideModelData]()
+    // MARK: - Lifecycle
     
+    // Custom initializers go here
     
     // MARK: - View Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector:#selector(viewWillAppear(_:)), name: NSNotification.Name(rawValue: "Forground"), object: nil)
-        NotificationCenter.default.addObserver(self, selector : #selector(handleNotification(n:)), name : Notification.Name("notificationData"), object : nil)
          navigationItem.title = "Hello \(UserStoreSingleton.shared.name ?? "")"
         tableView.delegate = self
         tableView.dataSource = self
@@ -41,24 +38,8 @@ class BookingsViewController: HomeBaseViewController {
         navigationItem.rightBarButtonItem?.tintColor = UIColor.white
        // self.locationButton.setTitle(UserStoreSingleton.shared.locationName, for: .normal)
     }
-    
-    @objc func handleNotification(n : NSNotification) {
-        print(n)
-        let dicData = n.object as! [String: String]
-        let notificationType = dicData["notificationType"]!
-        if notificationType == "request" {
-            let screenShotImage = TakeScreenShotImage.shareInstance.takeScreenshot(false) ?? UIImage()
-            let storyboard = UIStoryboard(name: "Booking", bundle: nil)
-            let secondVc = storyboard.instantiateViewController(withIdentifier: "NewBookingViewController") as! NewBookingViewController
-            secondVc.delegate = self
-            secondVc.sSImage = screenShotImage
-            self.present(secondVc, animated: false, completion: nil)
-        }
-    }
-    
-    
     override func viewWillAppear(_ animated: Bool) {
-        tabBarController?.tabBar.isHidden = false
+        
         if Reachability.isConnectedToNetwork(){
             bookings()
             
@@ -68,13 +49,15 @@ class BookingsViewController: HomeBaseViewController {
             }])
         }
         tabBarController?.tabBar.isHidden = false
-        self.locationButton.setTitle(BookingsViewController.locationForBooking, for: .normal)
+        self.locationButton.setTitle(UserStoreSingleton.shared.locationName, for: .normal)
     }
     
     
     // MARK: - Layout
     
     // MARK: - User Interaction
+    
+    
     
     // MARK: - Additional Helpers
     func bookings(){
@@ -88,6 +71,7 @@ class BookingsViewController: HomeBaseViewController {
                 // debugPrint(json)
                 DispatchQueue.main.async {
                     self.hideActivity()
+                    
                     self.getProviderBookingData.removeAll()
                     self.getProviderBookingData = json.data!
                     if self.getProviderBookingData.count == 0{
@@ -136,15 +120,15 @@ extension BookingsViewController: UITableViewDataSource {
         return getProviderBookingData.count
     }
     
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "BookingsTableViewCell") as? BookingsTableViewCell else {
             return UITableViewCell()
         }
-        let selectedDay = getProviderBookingData[indexPath.row].day
-        let day = String(selectedDay!.dropFirst(2))
-//        selectedDay = selectedDay!.replacingOccurrences(of: " \n", with: "", options: NSString.CompareOptions.literal, range: nil)
-      //  let dayWithOutDate = String((selectedDay?.dropFirst(3))!)
-        cell.dateLabel.text = getProviderBookingData[indexPath.row].day
+        var selectedDay = getProviderBookingData[indexPath.row].day
+        selectedDay = selectedDay!.replacingOccurrences(of: " \n", with: "", options: NSString.CompareOptions.literal, range: nil)
+        let dayWithOutDate = String((selectedDay?.dropFirst(3))!)
+        cell.dateLabel.text = dayWithOutDate
         cell.serviceLabel.text = getProviderBookingData[indexPath.row].categoryName
         cell.locationLabel.text = getProviderBookingData[indexPath.row].location
         let ImageUrl = URL(string: getProviderBookingData[indexPath.row].image ?? "")
@@ -159,7 +143,7 @@ extension BookingsViewController: UITableViewDataSource {
         }
        // cell.serviceImageView.sd_setImage(with: ImageUrl, placeholderImage:UIImage(contentsOfFile:"outdoor_home_service.png"))
 
-        cell.nameLabel.text = getProviderBookingData[indexPath.row].userDetails?.first_name
+        cell.nameLabel.text = getProviderBookingData[indexPath.row].userDetails?.name
         cell.profileImageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
         let profileUrl = URL(string: getProviderBookingData[indexPath.row].userDetails?.image ?? "")
         cell.profileImageView?.sd_setImage(with: profileUrl) { (image, error, cache, urls) in
@@ -171,14 +155,17 @@ extension BookingsViewController: UITableViewDataSource {
         }
        // cell.profileImageView.sd_setImage(with: profileUrl, placeholderImage:UIImage(contentsOfFile:"user.profile.icon.png"))
         let date = getDate(date: getProviderBookingData[indexPath.row].booking_date ?? "")
-        let time = getProviderBookingData[indexPath.row].time ?? ""
-        let dateTime = time + " : " + date!
+        let time = getTime(time: getProviderBookingData[indexPath.row].time ?? "")
+        let dateTime = time! + " : " + date!
         cell.timeLabel.text = dateTime
         cell.lbl_40m.text = getProviderBookingData[indexPath.row].totalTime ?? ""
+        
         cell.view_Rating.rating = Double((getProviderBookingData[indexPath.row].userDetails?.rating ?? 0.0) as Float)
+        
         let arr = getProviderBookingData[indexPath.row].subcategoryId
                cell.arrSubCategory = arr ?? []
         cell.lbl_price.text = getProviderBookingData[indexPath.row].price
+        cell.lbl_40m.isHidden = true
         let userId = getProviderBookingData[indexPath.row].userDetails?.userId
         UserStoreSingleton.shared.bookingID = userId
         cell.copybtn.addTarget(self, action: #selector(copy_btn_tapped(_:)), for: .touchUpInside)
@@ -196,12 +183,5 @@ extension BookingsViewController: UITableViewDataSource {
         let location = getProviderBookingData[sender.tag].location
         UIPasteboard.general.string = location
         showMessage("Text copied")
-    }
-}
-
-extension BookingsViewController : fromNotification {
-    func dissmissNotification(jobId: Int) {
-        print("------Working-----")
-        self.navigate(.jobStatus(jobId: jobId))
     }
 }

@@ -1,16 +1,17 @@
 //
 //  HomeTableViewCell.swift
 //  Chores for me
+//
 //  Created by Bright_1 on 17/09/21.
 //
 
 import UIKit
 
-
 class HomeTableViewCell: UITableViewCell {
 
     
     // MARK: - Outlets
+    
     @IBOutlet var time40Label: UILabel!
     @IBOutlet var serviceLabel1: UILabel!
     @IBOutlet weak var collectionView1: UICollectionView!
@@ -22,17 +23,13 @@ class HomeTableViewCell: UITableViewCell {
     @IBOutlet var priceLabel: UILabel!
     @IBOutlet var serviceImageView1: UIImageView!
     @IBOutlet var lbl_createTime: UILabel!
+    var homeArrSubCategory = [SubcategoryId]()
+    
     @IBOutlet var view_Rating: FloatRatingView!
     @IBOutlet weak var copybtn: UIButton!
-    
-    
-    // MARK: - Propeties
-    var homeArrSubCategory = [SubcategoryId]()
-
-    
-    // MARK: - View Life Cycle
     override func awakeFromNib() {
         super.awakeFromNib()
+       
         collectionView1.delegate = self
         collectionView1.dataSource = self
         collectionView1.register(UINib(nibName: "HomeCollectionviewCellCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "HomeCollectionviewCellCollectionViewCell")
@@ -46,17 +43,20 @@ class HomeTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    // MARK: - Additional Helper Functios
 }
 
 
 // MARK: - UICollectionViewDelegate
+
 extension HomeTableViewCell: UICollectionViewDelegate {
     
 }
 
-
 // MARK: - UICollectionViewDataSource
+
 extension HomeTableViewCell: UICollectionViewDataSource {
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -75,8 +75,12 @@ extension HomeTableViewCell: UICollectionViewDataSource {
 }
 
 
+// MARK: - UICollection
+
 // MARK: - UICollectionViewDelegateFlowLayout
+
 extension HomeTableViewCell: UICollectionViewDelegateFlowLayout {
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 12
     }
@@ -88,6 +92,5 @@ extension HomeTableViewCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 100, height: collectionView.frame.height)
     }
-    
 }
 

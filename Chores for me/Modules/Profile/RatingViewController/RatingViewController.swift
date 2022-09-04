@@ -67,13 +67,13 @@ class RatingViewController: UIViewController {
                         if json.status == 200 {
                             self.showMessage(json.message ?? "")
                             DispatchQueue.main.asyncAfter(deadline: .now()+1.0){
-                                self.dismiss(animated: false, completion: nil)
+                                self.navigationController?.popViewController(animated: true)
                            }
                            
                         }else{
                             self.showMessage(json.message ?? "")
                             DispatchQueue.main.asyncAfter(deadline: .now()+1.0){
-                                self.dismiss(animated: false, completion: nil)
+                                self.navigationController?.popViewController(animated: true)
                            }
                         }
                     }

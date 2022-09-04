@@ -27,7 +27,7 @@ class CancelRequestViewController: BaseViewController {
     var selectedIndex = -1
     var screenType = "cancelbyProvider"
     var dicData : GetReqOnProviderSideModelData!
-    
+
     
     // MARK: - Lifecycle
     
@@ -54,10 +54,10 @@ class CancelRequestViewController: BaseViewController {
     @IBAction func btn_SubmitCanelRequest(_ sender: UIButton) {
         
         //navigate this screen back to jobDetail screen with selected reason and screenType declered at top
-        // navigate(.jobStatus(jobId: jobId))
+       // navigate(.jobStatus(jobId: jobId))
         
         if Reachability.isConnectedToNetwork(){
-            cancelJobAPI()
+        cancelJobAPI()
         }else{
             openAlert(title: "Chores for me", message: "Make Sure Your Internet Is Connected", alertStyle: .alert, actionTitles: ["OK"], actionStyles: [.default], actions: [{_ in
             }])
@@ -71,7 +71,7 @@ class CancelRequestViewController: BaseViewController {
     // MARK: - Additional Helpers
     func cancelJobAPI(){
         if selectedIndex == -1 {
-            showMessage("Please select one reason.")
+        showMessage("Please select one reason.")
             return
         }
         let Url = String(format: "http://3.18.59.239:3000/api/v1//canceljob-By-Provider")
@@ -94,7 +94,7 @@ class CancelRequestViewController: BaseViewController {
                     if json.status == 200 {
                         self.showMessage(json.message ?? "")
                         DispatchQueue.main.asyncAfter(deadline: .now()+1.0){
-                            RootRouter().loadMainHomeStructure()
+                      RootRouter().loadMainHomeStructure()
                         }
                     } else{
                         self.showMessage(json.message ?? "")
@@ -131,23 +131,15 @@ extension CancelRequestViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         cell.requestsLabelText.text = cancelRequestArray[indexPath.item].reason
-      //  cell.checkButton.addTarget(self, action: #selector(cancelJobTap(_:)), for: .touchUpInside)
+        
         return cell
     }
-    @objc func cancelJobTap(_ Sender : UIButton){
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "CancelRequestTableViewCell") as! CancelRequestTableViewCell
-//        cell.checkButton.isSelected.toggle()
-//        if selectedIndex != Sender.tag{
-//            selectedIndex = -1
-//            if cell.checkButton.isSelected{
-//                selectedIndex = Sender.tag
-//            }
-//        }
-    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) as? CancelRequestTableViewCell else {
             return
         }
+        
         if selectedIndex != indexPath.row {
             cell.checkButton.isSelected.toggle()
             selectedIndex = -1
@@ -155,7 +147,7 @@ extension CancelRequestViewController: UITableViewDataSource {
                 selectedIndex = indexPath.row
             }
         }
-      //  cancelRequestArray[indexPath.item].isSelected = cell.checkButton.isSelected
+        //cancelRequestArray[indexPath.item].isSelected = cell.checkButton.isSelected
     }
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) as? CancelRequestTableViewCell else {

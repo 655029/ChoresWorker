@@ -21,8 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     lazy private var router = RootRouter()
     lazy private var deeplinkHandler = DeeplinkHandler()
     lazy private var notificationsHandler = NotificationsHandler()
-    lazy private var checkTime = BaseViewController()
-
+    
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.      
@@ -33,13 +32,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GMSServices.provideAPIKey(googleApiKey)
         FirebaseApp.configure()
         GIDSignIn.sharedInstance().clientID = "488113538675-3r77ldpbb36cchllgmats2791u4sfsc7.apps.googleusercontent.com"
-        ApplicationDelegate.shared.application(application,didFinishLaunchingWithOptions: launchOptions)
-        checkTime.CheckTimeFunc()
-        if #available(iOS 13.0, *) {
-            window?.overrideUserInterfaceStyle = .light
-        } else {
-            // Fallback on earlier versions
-        }
+        
+        ApplicationDelegate.shared.application(
+            application,
+            didFinishLaunchingWithOptions: launchOptions
+        )
         if #available(iOS 13.0, *) {
             
         }else {
@@ -83,28 +80,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-    
-    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        var flag: Bool = false
-        if  ApplicationDelegate.shared.application(
-            app,
-            open: url,
-            sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
-            annotation: options[UIApplication.OpenURLOptionsKey.annotation]
-        ) {
-            flag = ApplicationDelegate.shared.application(
-                app,
-                open: url,
-                sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
-                annotation: options[UIApplication.OpenURLOptionsKey.annotation]
-            )
-             }else {
-            flag = GIDSignIn.sharedInstance().handle(url)
-        }
-        return flag
-    }
-
-    func setRootController() {
+    func setRootController(){
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         if #available(iOS 13.0, *) {
@@ -183,27 +159,10 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler(.alert)
-        
-        let userInfo = notification.request.content.userInfo
-        print(userInfo)
-        let notificationType = userInfo[AnyHashable("notificationtype")] as? String
-
-        if notificationType == "complete" {
-            let strJobId  = userInfo[AnyHashable("jobId")]
-            let storyboard = UIStoryboard(name: "Booking", bundle: nil)
-            let jobId  = userInfo[AnyHashable("jobId")]
-        let str = Int(jobId as? String ?? "0")
-        //print(str!)
-        UserStoreSingleton.shared.id = str
-            let secondVc = storyboard.instantiateViewController(withIdentifier: "NewBookingViewController") as! NewBookingViewController
-            let navigationController = UINavigationController(rootViewController: secondVc)
-//            secondVc.delegate = self
-            navigationController.modalPresentationStyle = .overFullScreen
-            window?.rootViewController?.present(navigationController, animated: true, completion: nil)
-        }
-        
 
         NotifiationDataHandle(notification: notification)
+
+
 //        if notificationType == "request" {
 //            let storyboard = UIStoryboard(name: "Booking", bundle: nil)
 //            let secondVc = storyboard.instantiateViewController(withIdentifier: "NewBookingViewController")
@@ -234,7 +193,6 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
            NotificationCenter.default.post(name:NSNotification.Name(rawValue: "notificationData"), object: ["notificationType": notificationType], userInfo: nil)
         }
     }
-    
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         // To enable full remote notifications functionality you should first register the device with your api service
         //https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/

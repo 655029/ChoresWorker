@@ -19,8 +19,10 @@ target 'Chores for me' do
   pod 'SwiftyJSON', '~> 4.0'
   pod 'GoogleMaps'
   pod 'Firebase/Core'
+  
   pod 'FBSDKCoreKit'
   pod 'FBSDKLoginKit'
+  
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
   pod 'Firebase/Analytics'
